@@ -1,0 +1,20 @@
+html {
+    /* Sizes */
+    --display-height: 530px;
+    --display-width: 800px;
+    --map-cell-size: 50px;
+    --sprite-size: var(--map-cell-size);
+
+
+    /* Fonts */
+    --primary-font: 'Cormorant SC';
+    --secondary-font: 'Pirata One';
+    --font-size-large: 24pt;
+    --font-size-med: 18pt;
+    --font-size-small: 16pt;
+    --font-size-xs-small: 12pt;
+
+    /* Colors */
+    --background-color: rgba(255, 255, 255, 0.7);
+    --background-color-2: rgba(255, 255, 255, 0.9);
+}
