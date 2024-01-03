@@ -9,6 +9,13 @@ namespace Shipwrecked.Components;
 public partial class Button
 {
     /// <summary>
+    /// The navigation manager used to navigate to different pages
+    /// </summary>
+    [Inject] private NavigationManager NavManager { get; set; }
+    
+    #region Parameters
+    
+    /// <summary>
     /// Text content of the button
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; } 
@@ -22,4 +29,29 @@ public partial class Button
     /// The type of the button. Changes the styling
     /// </summary>
     [Parameter] public ButtonType Variant { get; set; } = ButtonType.Primary;
+    
+    /// <summary>
+    /// The location to navigate to on button click
+    /// </summary>
+    [Parameter] public string? Route { get; set; }
+
+    /// <summary>
+    /// Callback letting parent component know the onClick event has been triggered
+    /// </summary>
+    [Parameter] public EventCallback OnClickCallback { get; set; }
+
+    #endregion
+
+    /// <summary>
+    /// Handle the button's onClick event
+    /// </summary>
+    private void HandleClick()
+    {
+        OnClickCallback.InvokeAsync();
+        
+        if (!string.IsNullOrWhiteSpace(Route))
+        {
+            NavManager.NavigateTo(Route);
+        }
+    }
 }

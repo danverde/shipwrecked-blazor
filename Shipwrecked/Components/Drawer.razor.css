@@ -1,0 +1,53 @@
+.drawer {
+    --drawer-width: 500px;
+    --transition-time: 0.3s; /* TODO not sure if this var will work here! */
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 100vh;
+    width: var(--drawer-width);
+    background-color: white;
+    z-index: 3;
+    padding: 30px;
+    transition: left var(--transition-time);
+
+    &.closed {
+        left: calc(var(--drawer-width) * -1);
+    }
+
+    .title {
+        font-family: var(--primary-font);
+        margin: 0 0 30px 0;
+    }
+
+    .close-button {
+        display: block;
+        margin-left: auto;
+        background-color: initial;
+        border: none;
+        font-size: var(--font-size-small);
+        cursor: pointer;
+        font-family: var(--primary-font);
+    }
+}
+
+.overlay {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    opacity: 1;
+    transition: all var(--transition-time);
+    visibility: visible;
+
+    &.closed {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

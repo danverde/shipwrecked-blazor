@@ -1,25 +1,13 @@
 @page "/"
-@using Shipwrecked.Models
 
-@* <HelpDrawer></HelpDrawer> *@
+
+<HelpDrawer></HelpDrawer>
 
 <div class="main-menu-wrapper">
   <h1 class="header">Shipwrecked</h1>
   <div class="button-wrapper">
-    <Button Variant="ButtonType.Banner">New Game</Button>   
-    <Button Variant="ButtonType.Banner">Load Game</Button>   
-    <Button Variant="ButtonType.Banner" Disabled="@true">Help Menu</Button>   
+    <Button Variant="ButtonType.Banner" Disabled="@true" Route="/new-game">New Game</Button>
+    <Button Variant="ButtonType.Banner" Disabled="@false" Route="/load-game">Load Game</Button>
+    <Button Variant="ButtonType.Banner" OnClickCallback="@HelpMenuClicked" Disabled="@false">Help Menu</Button>
   </div>
 </div>
-
-
-<!-- <app-help-drawer></app-help-drawer>
-
-<div class="main-menu-wrapper">
-  <app-header>Shipwrecked</app-header>
-  <div class="button-wrapper">
-    <app-button type="banner" route="/new-game">New Game</app-button>
-    <app-button type="banner" route="/load-game">Load Game</app-button>
-    <app-button type="banner" (click)="handleHelpButtonClick()">Help Menu</app-button>
-  </div>
-</div> -->

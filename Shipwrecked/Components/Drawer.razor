@@ -1,0 +1,11 @@
+@using Shipwrecked.Services
+<aside class="drawer @(IsOpen ? "open" : "closed")">
+  <button @onclick="CloseDrawer" class="close-button">X</button>
+  @if (!string.IsNullOrWhiteSpace(Title))
+  {
+    <h1 class="title">@Title</h1>
+  } 
+  @ChildContent
+</aside>
+
+<div @onclick="CloseDrawer" class="overlay @(IsOpen ? "open" : "closed")"></div>
