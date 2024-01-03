@@ -1,0 +1,74 @@
+:host {
+    display: inline-block;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    font-family: var(--primary-font);
+    font-weight: bold;
+    font-size: var(--font-size-small);
+}
+
+.primary {
+    background: var(--fade-background);
+    transition: background-color 0.3s;
+    position: relative;
+    z-index: 1;
+    display: block;
+    padding: 7px;
+    margin-bottom: 10px;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &::before {
+        background: var(--fade-opaque-background);
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    &:not([disabled]):hover::before {
+        opacity: 1;
+    }
+}
+
+.banner {
+    background: var(--fade-background);
+    transition: background-color 0.3s;
+    position: relative;
+    z-index: 1;
+    display: block;
+    min-height: 50px;
+    padding: 0 30px;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &::before {
+        background: var(--fade-opaque-background);
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    &:not([disabled]):hover::before {
+        opacity: 1;
+    }
+}

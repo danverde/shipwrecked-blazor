@@ -1,5 +1,9 @@
-<h3>Button</h3>
+@* <button (click)="handleClick($event)" [routerLink]="route ? route: null" [ngClass]="type" [disabled]="disabled"> *@
+@*     <ng-content></ng-content> *@
+@* </button> *@
 
-@code {
-    
-}
+<button
+    class="@Type.ToString().ToLower()"
+    disabled="@Disabled">
+    @ChildContent
+</button>
