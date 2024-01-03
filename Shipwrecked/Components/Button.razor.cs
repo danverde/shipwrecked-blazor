@@ -21,5 +21,5 @@ public partial class Button
     /// <summary>
     /// The type of the button. Changes the styling
     /// </summary>
-    [Parameter] public ButtonType Type { get; set; } = ButtonType.Primary;
+    [Parameter] public ButtonType Variant { get; set; } = ButtonType.Primary;
 }

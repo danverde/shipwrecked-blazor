@@ -1,13 +1,14 @@
 @page "/"
+@using Shipwrecked.Models
 
 @* <HelpDrawer></HelpDrawer> *@
 
 <div class="main-menu-wrapper">
   <h1 class="header">Shipwrecked</h1>
   <div class="button-wrapper">
-    <Button>New Game</Button>   
-    <Button>Load Game</Button>   
-    <Button Disabled="@true">Help Menu</Button>   
+    <Button Variant="ButtonType.Banner">New Game</Button>   
+    <Button Variant="ButtonType.Banner">Load Game</Button>   
+    <Button Variant="ButtonType.Banner" Disabled="@true">Help Menu</Button>   
   </div>
 </div>
 
@@ -22,8 +23,3 @@
     <app-button type="banner" (click)="handleHelpButtonClick()">Help Menu</app-button>
   </div>
 </div> -->
-
-
-@code {
-    
-}
