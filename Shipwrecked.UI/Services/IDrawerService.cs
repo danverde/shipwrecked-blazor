@@ -1,6 +1,6 @@
-using Shipwrecked.Models;
+using Shipwrecked.UI.Models;
 
-namespace Shipwrecked.Services;
+namespace Shipwrecked.UI.Services;
 
 public interface IDrawerService
 {

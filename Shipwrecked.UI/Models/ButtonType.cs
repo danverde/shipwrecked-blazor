@@ -1,4 +1,4 @@
-namespace Shipwrecked.Models;
+namespace Shipwrecked.UI.Models;
 
 /// <summary>
 /// Enum representing the various button types available

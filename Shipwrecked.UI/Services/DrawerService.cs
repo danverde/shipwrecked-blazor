@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using Shipwrecked.Models;
+using Shipwrecked.UI.Models;
 
-namespace Shipwrecked.Services;
+namespace Shipwrecked.UI.Services;
 
 /// <summary>
 /// Service to manage the state of drawers throughout the UI

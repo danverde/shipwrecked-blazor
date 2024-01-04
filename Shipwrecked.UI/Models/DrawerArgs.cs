@@ -1,4 +1,4 @@
-namespace Shipwrecked.Models;
+namespace Shipwrecked.UI.Models;
 
 public class DrawerArgs : EventArgs
 {
