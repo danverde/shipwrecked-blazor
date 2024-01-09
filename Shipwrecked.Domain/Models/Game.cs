@@ -1,3 +1,5 @@
+using Shipwrecked.Domain.Enums;
+
 namespace Shipwrecked.Domain.Models;
 
 /// <summary>
@@ -11,5 +13,4 @@ public class Game
     public GameStatus Status { get; set; } = GameStatus.PendingSetup;
     public Map Map { get; set; }
     public GameSettings GameSettings { get; set; }
-    public string SaveFileName { get; set; } = "";
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipwrecked.Domain", "Shipw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipwrecked.Application", "Shipwrecked.Application\Shipwrecked.Application.csproj", "{F489C3B8-F85D-4AD2-8270-8AF85F514FCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipwrecked.Infrastructure", "Shipwrecked.Infrastructure\Shipwrecked.Infrastructure.csproj", "{CC2B355B-26AE-4163-8456-FF40D603067D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F489C3B8-F85D-4AD2-8270-8AF85F514FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F489C3B8-F85D-4AD2-8270-8AF85F514FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F489C3B8-F85D-4AD2-8270-8AF85F514FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC2B355B-26AE-4163-8456-FF40D603067D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC2B355B-26AE-4163-8456-FF40D603067D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC2B355B-26AE-4163-8456-FF40D603067D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC2B355B-26AE-4163-8456-FF40D603067D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

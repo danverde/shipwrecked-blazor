@@ -1,4 +1,4 @@
-namespace Shipwrecked.Domain.Models;
+namespace Shipwrecked.Domain.Enums;
 
 /// <summary>
 /// Lists available Game Statuses

@@ -11,6 +11,20 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" PrivateAssets="all" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\img\sprites\" />
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\img\woman\woman all.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\woman\woman-1.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\woman\woman-2.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\woman\woman-3.png" />
+    <_ContentIncludedByDefault Remove="wwwroot\img\woman\woman.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shipwrecked.Domain\Shipwrecked.Domain.csproj" />
   </ItemGroup>
 
 </Project>
