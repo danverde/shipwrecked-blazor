@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Shipwrecked.UI.Interfaces;
 using Shipwrecked.UI.Models;
 using Shipwrecked.UI.Services;
 
@@ -12,7 +13,8 @@ public partial class Drawer : IDisposable
     /// <summary>
     /// Drawer Service used to consume & dispatch drawer events
     /// </summary>
-    [Inject] private IDrawerService DrawerService { get; set; }
+    [Inject]
+    private IDrawerService DrawerService { get; set; } = default!;
 
     #region Input Parameters
 

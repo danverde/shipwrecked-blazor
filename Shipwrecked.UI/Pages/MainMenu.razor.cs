@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Shipwrecked.UI.Interfaces;
 using Shipwrecked.UI.Models;
 using Shipwrecked.UI.Services;
 

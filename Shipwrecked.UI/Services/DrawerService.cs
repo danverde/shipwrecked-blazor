@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using Shipwrecked.UI.Interfaces;
 using Shipwrecked.UI.Models;
 
 namespace Shipwrecked.UI.Services;

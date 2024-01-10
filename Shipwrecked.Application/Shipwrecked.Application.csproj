@@ -7,11 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Interfaces\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Shipwrecked.Domain\Shipwrecked.Domain.csproj" />
+      <ProjectReference Include="..\Shipwrecked.Infrastructure\Shipwrecked.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,3 @@
-using Shipwrecked.Domain.Enums;
-
 namespace Shipwrecked.Domain.Models;
 
 /// <summary>
@@ -7,10 +5,18 @@ namespace Shipwrecked.Domain.Models;
 /// </summary>
 public class Game
 {
+    /// <summary>
+    /// A unique identifier for the game
+    /// </summary>
     public Guid Id { get; set; }
-    public Player Player { get; set; }
+    
+    /// <summary>
+    /// The current day in the game
+    /// </summary>
     public int Day { get; set; }
-    public GameStatus Status { get; set; } = GameStatus.PendingSetup;
-    public Map Map { get; set; }
+    
+    /// <summary>
+    /// The game settings
+    /// </summary>
     public GameSettings GameSettings { get; set; }
 }

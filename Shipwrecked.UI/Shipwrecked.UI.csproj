@@ -24,7 +24,9 @@
     <_ContentIncludedByDefault Remove="wwwroot\img\woman\woman.gif" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Shipwrecked.Application\Shipwrecked.Application.csproj" />
     <ProjectReference Include="..\Shipwrecked.Domain\Shipwrecked.Domain.csproj" />
+    <ProjectReference Include="..\Shipwrecked.Infrastructure\Shipwrecked.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

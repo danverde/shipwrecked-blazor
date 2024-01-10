@@ -1,0 +1,17 @@
+@page "/Game/{Id}"
+@using Shipwrecked.Infrastructure
+<h3>Game</h3>
+<span>@Id</span>
+<span>@Meh.Day</span>
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    // TODO no surprise here, but blazor doesn't watch this object for changes... I'll have to find a way to propagate them up...
+    private Domain.Models.Game Meh = State.Game;
+    
+    // TODO on page load look for a game with the corresponding ID in state...
+}

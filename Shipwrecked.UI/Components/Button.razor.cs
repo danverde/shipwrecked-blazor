@@ -11,8 +11,8 @@ public partial class Button
     /// <summary>
     /// The navigation manager used to navigate to different pages
     /// </summary>
-    [Inject] 
-    private NavigationManager NavManager { get; set; }
+    [Inject]
+    private NavigationManager NavManager { get; set; } = default!;
     
     #region Parameters
     
