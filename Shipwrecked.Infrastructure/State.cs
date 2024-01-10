@@ -8,6 +8,7 @@ namespace Shipwrecked.Infrastructure;
 /// </summary>
 public static class State
 {
+    // TODO there is nothing stopping views from changing these directly w/out calling the services...
     public static Game Game { get; set; } = new Game();
 
     public static Map Map { get; set; } = new Map();

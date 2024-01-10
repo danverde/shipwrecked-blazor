@@ -1,17 +1,34 @@
 @page "/Game/{Id}"
-@using Shipwrecked.Infrastructure
-<h3>Game</h3>
-<span>@Id</span>
-<span>@Meh.Day</span>
 
+<h3>Game</h3>
+<p>Game Id: @Id</p>
+
+<h4>Game</h4>
+<p>Day: @GameContext.Day</p>
+
+<h4>Player</h4>
+<p>Day: @PlayerContext.Name</p>
+
+<button @onclick="IncrementDay">Increment Day</button>
 
 
 @code {
     [Parameter]
     public string Id { get; set; }
 
-    // TODO no surprise here, but blazor doesn't watch this object for changes... I'll have to find a way to propagate them up...
-    private Domain.Models.Game Meh = State.Game;
+    [Inject] 
+    private IGameService GameService { get; set; } = default!;
+
+    private Domain.Models.Game GameContext { get; set; } = State.Game;
+
+    private Player PlayerContext { get; set; } = State.Player;
     
+    private void IncrementDay()
+    {
+        Console.WriteLine("Increment Day called");
+        
+        GameService.IncrementDay();
+    }
+
     // TODO on page load look for a game with the corresponding ID in state...
 }

@@ -1,3 +1,4 @@
+using System.Data;
 using Ardalis.GuardClauses;
 using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
@@ -13,6 +14,7 @@ namespace Shipwrecked.Application.Services;
 public class GameService : IGameService
 {
     private readonly IGameStore _gameStore;
+    private Game _game;
     
     /// <summary>
     /// Constructor specifying all dependencies
@@ -21,17 +23,37 @@ public class GameService : IGameService
     {
         _gameStore = Guard.Against.Null(gameStore);
     }
-    
+
     /// <inheritdoc />
     public void StartGame(GameDifficulty difficulty)
     {
-        Game game = new Game
+        _game = new Game
         {
             Id = Guid.NewGuid(),
             Day = 1,
             GameSettings = GameSettingsFactory.Create(difficulty)
         };
         
-        _gameStore.UpdateGame(game);
+        Update();
     }
+    
+    /// <inheritdoc />
+    public void IncrementDay()
+    {
+        _game.Day += 1;
+        
+        Update();
+    }
+
+    #region Private
+
+    /// <summary>
+    /// Update the game store
+    /// </summary>
+    private void Update()
+    {
+        _gameStore.UpdateGame(_game);
+    }
+    
+    #endregion
 }

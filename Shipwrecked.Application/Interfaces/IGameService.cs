@@ -1,4 +1,5 @@
 using Shipwrecked.Domain.Enums;
+using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Application.Interfaces;
 
@@ -11,4 +12,9 @@ public interface IGameService
     /// Start a new Game with a given difficulty level
     /// </summary>
     void StartGame(GameDifficulty difficulty);
+    
+    /// <summary>
+    /// Increment the day in the game
+    /// </summary>
+    void IncrementDay();
 }
