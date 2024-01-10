@@ -22,23 +22,20 @@
             margin-top: 0;
             margin-bottom: 0;
         }
-
-        .radio-wrapper {
-
-            p {
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-        }
     }
+}
 
-    .sprite {
-        height: 50px;
-        width: 50px;
-    }
+.sprite {
+    height: 50px;
+    width: 50px;
+    position: relative;
+    top: -15px;
+}
 
-    .footer {
-        display: flex;
-        justify-content: space-between;
-    }
+label{
+    margin-right: 15px;
+}
+
+.validation-message-wrapper {
+    font-size: var(--font-size-xs-small);
 }

@@ -1,56 +1,68 @@
 @page "/new-game"
-@using Shipwrecked.Domain.Enums
-@using Shipwrecked.Domain.Models
 
 <div class="new-game-wrapper">
     <div>
         <h1 class="header">New Game</h1>
     </div>
-    <EditForm OnSubmit="@HandleFormSubmit" Model="@FormInput" class="input-wrapper">
+    <EditForm EditContext="@FormContext" id="@FormId" OnValidSubmit="@HandleFormSubmit" class="input-wrapper">
+        <DataAnnotationsValidator/>
         <h3>Game Setup</h3>
 
         <label>
-            Name: 
-            <InputText DisplayName="Character Name" @bind-Value="FormInput.Name"></InputText>
+            <span class="fw-bold">Name:</span>
+            <InputText DisplayName="Character Name" @bind-Value="_formInput.Name"></InputText>
+            <div class="validation-message-wrapper">
+                <ValidationMessage For="() => _formInput.Name"></ValidationMessage>
+            </div>
         </label>
-            Sex:
-        <InputRadioGroup @bind-Value="FormInput.Gender">
-            <label>
-                Male
-                <InputRadio Value="@Gender.Male"></InputRadio>
-                <img class="sprite" alt="A sprite of a man" src="img/sprites/man/man.gif">
-            </label>
-            <label>
-                Female
-                <InputRadio Value="@Gender.Female"></InputRadio>
-                <img class="sprite" alt="A sprite of a woman" src="img/sprites/woman/woman.gif">
-            </label>
+        <InputRadioGroup @bind-Value="_formInput.Gender">
+            <span class="fw-bold">Sex:</span>
+            <div>
+                <label>
+                    <InputRadio Value="@Gender.Male"></InputRadio>
+                    Male
+                    <img class="sprite" alt="A sprite of a man" src="img/sprites/man/man.gif">
+                </label>
+                <label>
+                    <InputRadio Value="@Gender.Female"></InputRadio>
+                    Female
+                    <img class="sprite" alt="A sprite of a woman" src="img/sprites/woman/woman.gif">
+                </label>
+            </div>
         </InputRadioGroup>
-        <InputRadioGroup @bind-Value="FormInput.GameDifficulty">
-            <label>
-                Easy
-                <InputRadio Value="@GameDifficulty.Easy"></InputRadio>
-            </label>
-            <label>
-                Normal
-                <InputRadio Value="@GameDifficulty.Normal"></InputRadio>
-            </label>
-            <label>
-                Difficult
-                <InputRadio Value="@GameDifficulty.Difficult"></InputRadio>
-            </label>
+        <InputRadioGroup @bind-Value="_formInput.GameDifficulty">
+            <span class="fw-bold">Difficulty:</span>
+            <div class="label-wrapper">
+                <label>
+                    <InputRadio Value="@GameDifficulty.Easy"></InputRadio>
+                    Easy
+                </label>
+                <label>
+                    <InputRadio Value="@GameDifficulty.Normal"></InputRadio>
+                    Normal
+                </label>
+                <label>
+                    <InputRadio Value="@GameDifficulty.Difficult"></InputRadio>
+                    Difficult
+                </label>
+            </div>
         </InputRadioGroup>
-        
-        <button type="submit" value="Submit">Submit Form</button>
     </EditForm>
 
 
-    <div class="footer">
+    <div class="d-flex justify-content-between">
         <div>
             <Button Variant="@ButtonType.Banner" Route="/">Back</Button>
         </div>
         <div>
-            <Button Variant="@ButtonType.Banner" Disabled="@true">Start</Button>
+            <Button
+                Variant="@ButtonType.Banner"
+                Disabled="@((!FormContext?.Validate() ?? false) || (!FormContext?.IsModified() ?? false))"
+                Type="submit"
+                Value="Save"
+                FormId="@FormId">
+                Start
+            </Button>
         </div>
     </div>
 </div>

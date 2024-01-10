@@ -1,6 +1,9 @@
 <button
-    @onclick="HandleClick"
     class="@Variant.ToString().ToLower()"
+    type="@Type"
+    value="@Value"
+    form="@FormId"
+    @onclick="HandleClick"
     disabled="@Disabled">
     @ChildContent
 </button>

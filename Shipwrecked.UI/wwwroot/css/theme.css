@@ -14,7 +14,7 @@ html {
     --font-size-large: 24pt;
     --font-size-med: 18pt;
     --font-size-small: 16pt;
-    --font-size-xs-small: 12pt;
+    --font-size-xs-small: 14pt;
 
     /* Colors */
     --background-color: rgba(255, 255, 255, 0.7);
@@ -22,7 +22,7 @@ html {
     
     --fade-background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0.8) 80%, rgba(255, 255, 255, 0) 100%);
     --fade-opaque-background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 0) 100%);
-    --body-fade-background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 0) 100%);
+    --body-fade-background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 15%, rgba(255, 255, 255, 0.9) 85%, rgba(255, 255, 255, 0) 100%);
 }
 
 /***** Custom Classes *****/
