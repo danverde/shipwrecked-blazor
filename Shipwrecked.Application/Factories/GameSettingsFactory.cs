@@ -1,3 +1,4 @@
+using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
 
@@ -6,13 +7,10 @@ namespace Shipwrecked.Application.Factories;
 /// <summary>
 /// Factory used to generate GameSettings objects
 /// </summary>
-public static class GameSettingsFactory
+public class GameSettingsFactory : IGameSettingsFactory
 {
-    /// <summary>
-    /// Create a GameSettings object for the
-    /// given difficulties
-    /// </summary>
-    public static GameSettings Create(GameDifficulty difficulty)
+    /// <inheritdoc />
+    public GameSettings Create(GameDifficulty difficulty)
     {
         var waitSuccessRate = 100000;
         var staminaPerDay = 0;

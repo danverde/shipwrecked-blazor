@@ -1,5 +1,4 @@
 using Shipwrecked.Domain.Enums;
-using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Application.Interfaces;
 

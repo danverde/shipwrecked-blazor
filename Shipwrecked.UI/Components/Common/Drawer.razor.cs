@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Shipwrecked.UI.Interfaces;
 using Shipwrecked.UI.Models;
-using Shipwrecked.UI.Services;
 
-namespace Shipwrecked.UI.Components;
+namespace Shipwrecked.UI.Components.Common;
 
 /// <summary>
 /// Code behind for the Drawer Component

@@ -1,34 +1,12 @@
 @page "/Game/{Id}"
 
-<h3>Game</h3>
+<GameSummary></GameSummary>
 <p>Game Id: @Id</p>
 
 <h4>Game</h4>
-<p>Day: @GameContext.Day</p>
+<p>Day: @_gameContext.Day</p>
 
 <h4>Player</h4>
-<p>Day: @PlayerContext.Name</p>
+<p>Day: @_playerContext.Name</p>
 
 <button @onclick="IncrementDay">Increment Day</button>
-
-
-@code {
-    [Parameter]
-    public string Id { get; set; }
-
-    [Inject] 
-    private IGameService GameService { get; set; } = default!;
-
-    private Domain.Models.Game GameContext { get; set; } = State.Game;
-
-    private Player PlayerContext { get; set; } = State.Player;
-    
-    private void IncrementDay()
-    {
-        Console.WriteLine("Increment Day called");
-        
-        GameService.IncrementDay();
-    }
-
-    // TODO on page load look for a game with the corresponding ID in state...
-}

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Shipwrecked.UI.Models;
 
-namespace Shipwrecked.UI.Components;
+namespace Shipwrecked.UI.Components.Common;
 
 /// <summary>
 /// Code-behind class for the Button component

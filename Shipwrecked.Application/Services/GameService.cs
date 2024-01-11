@@ -1,6 +1,4 @@
-using System.Data;
 using Ardalis.GuardClauses;
-using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
@@ -13,15 +11,18 @@ namespace Shipwrecked.Application.Services;
 /// </summary>
 public class GameService : IGameService
 {
+    private readonly IGameSettingsFactory _gameSettingsFactory;
     private readonly IGameStore _gameStore;
     private Game _game;
     
     /// <summary>
     /// Constructor specifying all dependencies
     /// </summary>
-    public GameService(IGameStore gameStore)
+    public GameService(IGameSettingsFactory gameSettingsFactory, IGameStore gameStore)
     {
+        _gameSettingsFactory = Guard.Against.Null(gameSettingsFactory);
         _gameStore = Guard.Against.Null(gameStore);
+        _game = new Game();
     }
 
     /// <inheritdoc />
@@ -31,7 +32,8 @@ public class GameService : IGameService
         {
             Id = Guid.NewGuid(),
             Day = 1,
-            GameSettings = GameSettingsFactory.Create(difficulty)
+            Difficulty = difficulty,
+            Settings = _gameSettingsFactory.Create(difficulty)
         };
         
         Update();

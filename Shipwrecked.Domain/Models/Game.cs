@@ -1,3 +1,5 @@
+using Shipwrecked.Domain.Enums;
+
 namespace Shipwrecked.Domain.Models;
 
 /// <summary>
@@ -16,7 +18,13 @@ public class Game
     public int Day { get; set; }
     
     /// <summary>
+    /// The difficulty level of the game.
+    /// Used to set some game settings
+    /// </summary>
+    public GameDifficulty Difficulty { get; set; }
+
+    /// <summary>
     /// The game settings
     /// </summary>
-    public GameSettings GameSettings { get; set; }
+    public GameSettings Settings { get; set; } = new ();
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Infrastructure.Interfaces;
@@ -21,6 +22,7 @@ builder.Services.AddScoped<IGameStore, GameStore>();
 builder.Services.AddScoped<IPlayerStore, PlayerStore>();
 
 // Application Services
+builder.Services.AddSingleton<IGameSettingsFactory, GameSettingsFactory>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 
