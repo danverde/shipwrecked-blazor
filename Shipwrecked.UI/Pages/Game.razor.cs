@@ -10,7 +10,7 @@ public partial class Game
 {
     [Parameter]
     public string? Id { get; set; }
-
+    
     [Inject] 
     private NavigationManager NavigationManager { get; set; } = default!;
     
