@@ -1,4 +1,5 @@
 using Shipwrecked.Domain.Enums;
+using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Application.Interfaces;
 
@@ -10,5 +11,5 @@ public interface IPlayerService
     /// <summary>
     /// Create a new Player
     /// </summary>
-    void CreatePlayer(string name, Gender gender, GameDifficulty difficulty);
+    Player CreatePlayer(string name, Gender gender, GameDifficulty difficulty);
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Models;
 using Shipwrecked.Infrastructure;
+using Shipwrecked.Infrastructure.Interfaces;
 
 namespace Shipwrecked.UI.Pages;
 
@@ -13,12 +14,22 @@ public partial class Game
     [Inject] 
     private IGameService GameService { get; set; } = default!;
 
-    private readonly Domain.Models.Game _gameContext = State.Game;
+    [Inject] 
+    private IContext Context { get; set; } = default!;
 
-    private readonly Player _playerContext = State.Player;
+    [Inject] 
+    private IStateStorage StateStorage { get; set; } = default!;
 
+    private Domain.Models.Game GameState { get; set; } = default!;
+
+    private Player PlayerState { get; set; } = default!;
+    
     protected override void OnInitialized()
     {
+        State state = Context.GetState();
+        GameState = state.Game;
+        PlayerState = state.Player;
+        
         // TODO on page load look for a game with the corresponding ID in state...
         base.OnInitialized();
     }
@@ -26,7 +37,15 @@ public partial class Game
     private void IncrementDay()
     {
         Console.WriteLine("Increment Day called");
-        
-        GameService.IncrementDay();
+
+        GameState.Day++; // TODO only updated the game instance for this component... YIKES!
+
+        // GameService.IncrementDay();
+    }
+
+    private void SaveGame()
+    {
+        Console.WriteLine("Save Game called!");
+        StateStorage.SaveStateAsync(GameState.Id, Context.GetState());
     }
 }

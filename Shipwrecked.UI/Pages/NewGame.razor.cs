@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Shipwrecked.Application.Interfaces;
-using Shipwrecked.Infrastructure;
 using Shipwrecked.UI.Models;
+using Game = Shipwrecked.Domain.Models.Game;
 
 namespace Shipwrecked.UI.Pages;
 
@@ -36,11 +36,9 @@ public partial class NewGame
     
     private void HandleFormSubmit()
     {
-        GameService.StartGame(_formInput.GameDifficulty);
-        PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
+        var game = GameService.StartGame(_formInput.GameDifficulty);
+        var player = PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
 
-        var gameId = State.Game.Id;
-        
-        NavManager.NavigateTo($"/game/{gameId}");
+        NavManager.NavigateTo($"/game/{game.Id}");
     }
 }

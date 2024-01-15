@@ -1,5 +1,16 @@
-<h1 class="header">Day @_game.Day</h1>
+@using Shipwrecked.Infrastructure.Interfaces
+<h1 class="header">Day @GameState.Day</h1>
 
 @code {
-    private readonly Game  _game = State.Game;
+    [Inject] 
+    private IContext Context { get; set; } = default!;
+
+    private Game GameState { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        GameState = Context.GetState().Game;        
+        base.OnInitialized();
+    }
+
 }

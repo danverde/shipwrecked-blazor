@@ -4,9 +4,11 @@
 <p>Game Id: @Id</p>
 
 <h4>Game</h4>
-<p>Day: @_gameContext.Day</p>
+<p>Day: @GameState.Day</p>
 
 <h4>Player</h4>
-<p>Day: @_playerContext.Name</p>
+<p>Day: @PlayerState.Name</p>
 
 <button @onclick="IncrementDay">Increment Day</button>
+
+<button @onclick="SaveGame">Save Game</button>

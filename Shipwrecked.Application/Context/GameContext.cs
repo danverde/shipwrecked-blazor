@@ -2,53 +2,49 @@ using Ardalis.GuardClauses;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
-using Shipwrecked.Infrastructure;
-using Shipwrecked.Infrastructure.Interfaces;
 
-namespace Shipwrecked.Application.Services;
+namespace Shipwrecked.Application.Context;
 
 /// <summary>
-/// Implementation of the <see cref="IGameService"/> interface
+/// Implementation of the <see cref="IGameContext"/> interface
 /// </summary>
-public class GameService : IGameService
+public class GameContext : IGameContext
 {
     private readonly IGameSettingsFactory _gameSettingsFactory;
-    private readonly IContext _context;
+    private Game _game;
     
     /// <summary>
     /// Constructor specifying all dependencies
     /// </summary>
-    public GameService(IGameSettingsFactory gameSettingsFactory, IContext context)
+    public GameContext(IGameSettingsFactory gameSettingsFactory)
     {
         _gameSettingsFactory = Guard.Against.Null(gameSettingsFactory);
-        _context = Guard.Against.Null(context);
+        _game = new Game();
     }
-
+    
+    /// <inheritdoc />
+    public Game GetGame() => _game;
+    
     /// <inheritdoc />
     public Game StartGame(GameDifficulty difficulty)
     {
-        var game = new Game
+        _game = new Game
         {
             Id = Guid.NewGuid(),
             Day = 1,
             Difficulty = difficulty,
             Settings = _gameSettingsFactory.Create(difficulty)
         };
-        
-        _context.SetGameState(game);
 
-        return game;
+        return _game;
     }
     
     /// <inheritdoc />
-    public void IncrementDay()
+    public int IncrementDay()
     {
-        Game game = _context.GetState().Game;
+        _game.Day += 1;
         
-        game.Day += 1;
-        
-        // TODO pretty sure I don't have to update the store at this point...
-        _context.SetGameState(game);
+        return _game.Day;
     }
 
 }

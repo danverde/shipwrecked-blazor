@@ -3,6 +3,7 @@ using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
+using Shipwrecked.Infrastructure;
 using Shipwrecked.Infrastructure.Interfaces;
 
 namespace Shipwrecked.Application.Services;
@@ -12,25 +13,25 @@ namespace Shipwrecked.Application.Services;
 /// </summary>
 public class PlayerService : IPlayerService
 {
-    // TODO what if the player obj just lived here?
-    
-    private readonly IPlayerStore _playerStore;
+    private readonly IContext _context;
     
     /// <summary>
     /// Constructor specifying all dependencies
     /// </summary>
-    public PlayerService(IPlayerStore playerStore)
+    public PlayerService(IContext context)
     {
-        _playerStore = Guard.Against.Null(playerStore);
+        _context = Guard.Against.Null(context);
     }
     
     /// <inheritdoc />
-    public void CreatePlayer(string name, Gender gender, GameDifficulty difficulty)
+    public Player CreatePlayer(string name, Gender gender, GameDifficulty difficulty)
     {
         Guard.Against.NullOrWhiteSpace(name);
         
         Player player = PlayerFactory.CreatePlayer(name, gender, difficulty);
         
-        _playerStore.UpdatePlayer(player);
+        _context.SetPlayerState(player);
+
+        return player;
     }
 }
