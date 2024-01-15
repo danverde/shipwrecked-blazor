@@ -3,7 +3,6 @@ using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
-using Shipwrecked.Infrastructure;
 using Shipwrecked.Infrastructure.Interfaces;
 
 namespace Shipwrecked.Application.Services;

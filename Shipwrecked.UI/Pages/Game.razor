@@ -4,10 +4,10 @@
 <p>Game Id: @Id</p>
 
 <h4>Game</h4>
-<p>Day: @GameState.Day</p>
+<p>Day: @GameState?.Day</p>
 
 <h4>Player</h4>
-<p>Day: @PlayerState.Name</p>
+<p>Name: @PlayerState?.Name</p>
 
 <button @onclick="IncrementDay">Increment Day</button>
 

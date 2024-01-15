@@ -2,10 +2,10 @@ using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Infrastructure.Interfaces;
 
-public interface IContext
+public interface IContext : IReadContext
 {
-    public State GetState();
-
+    public void SetState(State state);
+    
     public void SetGameState(Game game);
 
     public void SetPlayerState(Player player);

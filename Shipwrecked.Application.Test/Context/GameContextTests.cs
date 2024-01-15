@@ -6,7 +6,6 @@ using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
-using Shipwrecked.Infrastructure.Interfaces;
 
 namespace Shipwrecked.Application.Test.Context;
 

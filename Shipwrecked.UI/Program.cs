@@ -25,6 +25,7 @@ builder.Services.AddSingleton<IDrawerService, DrawerService>();
 
 // Infrastructure Services
 builder.Services.AddSingleton<IContext, Context>();
+builder.Services.AddSingleton<IReadContext>(provider => provider.GetRequiredService<IContext>());
 
 // Application Services
 builder.Services.AddSingleton<IGameSettingsFactory, GameSettingsFactory>();

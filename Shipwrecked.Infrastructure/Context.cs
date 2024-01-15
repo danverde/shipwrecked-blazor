@@ -14,6 +14,13 @@ public class Context : IContext
 
     public State GetState() => State;
 
+    public void SetState(State state)
+    {
+        Guard.Against.Null(state);
+
+        State = state;
+    }
+    
     public void SetGameState(Game game)
     {
         Guard.Against.Null(game);

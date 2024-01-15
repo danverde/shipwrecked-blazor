@@ -1,5 +1,3 @@
-using Shipwrecked.Domain.Models;
-
 namespace Shipwrecked.Infrastructure.Interfaces;
 
 /// <summary>
@@ -7,6 +5,11 @@ namespace Shipwrecked.Infrastructure.Interfaces;
 /// </summary>
 public interface IStateStorage
 {
+    /// <summary>
+    /// Determines if a state exists in storage
+    /// </summary>
+    Task<bool> StateExistsAsync(Guid id);
+    
     /// <summary>
     /// Get a list of all saved games.
     /// </summary>
