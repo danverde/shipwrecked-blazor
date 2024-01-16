@@ -1,24 +1,40 @@
 @page "/load-game"
 <div class="load-game-wrapper">
-    <h1 class="header">Load Game</h1>
+    <div>
+        <h1 class="header">Load Game</h1>
+    </div>
         
     <div class="game-list-wrapper">
+        @if (!States.Any())
+        {
+            <div class="no-games">
+                  There are no saved games
+            </div>
+        }
+        
         @foreach (var (state, index) in @States.Select((s, i) => (s, i)))
         {
-            <div class="banner">
-                <div class="button-content-wrapper">
-                    <div class="left-col">
-                        Game @(index + 1)
+            @* <Button Variant="@ButtonType.Banner" Styles="margin-bottom: 15px;"> *@
+            <div class="button-wrapper">   
+                <Button Variant="@ButtonType.Banner">
+                    <div class="button-content-wrapper">
+                        <div class="left-col">
+                            Game @(index + 1)
+                        </div>
+                        <div class="button-column right-col">
+                            <span>@state.Player.Name <img alt="Player Sprite" src="@state.Player.ProfileImgUrl"></span>
+                            <span class="small">Lv. @state.Player.Level | Day @state.Game.Day</span>
+                        </div>
                     </div>
-                    <div class="button-column right-col">
-                        <span>@state.Player.Name <img src="@state.Player.ProfileImgUrl"></span>
-                        <span class="small">Lv. @state.Player.Level | Day @state.Game.Day</span>
-                    </div>
-                </div>
+                </Button>
             </div>
-            
         }
 
     </div>
+    
+    <div>
+        <Button Route="/" Variant="ButtonType.Banner">Back</Button>
+    </div>
+    
 </div>
 

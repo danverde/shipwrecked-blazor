@@ -11,6 +11,11 @@
     flex-direction: column;
     flex-grow: 1;
     margin-top: 30px;
+    overflow: scroll;
+}
+
+.button-wrapper {
+    margin-bottom: 15px;
 }
 
 .no-games {
@@ -20,15 +25,15 @@
     font-weight: bold;
 }
 
-        /*app-button {*/
-        /*    margin-bottom: 15px;*/
-        /*}*/
+button {
+    margin-bottom: 15px;
+}
 
 .button-content-wrapper {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 10px;
+    padding: 7px;
 }
 
 .button-column {
