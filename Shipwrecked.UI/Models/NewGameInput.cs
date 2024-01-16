@@ -10,6 +10,7 @@ public class NewGameInput
 {
     /// <summary>
     /// The Players Name
+    /// TODO add validation for length!
     /// </summary>
     [Required]
     public string Name { get; set; } = "";
