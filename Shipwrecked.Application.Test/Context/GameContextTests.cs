@@ -33,7 +33,7 @@ public class GameContextTests
     /// if any of the parameters are null
     /// </summary>
     [Theory]
-    [InlineData("gameStore")]
+    [InlineData("gameSettingsFactory")]
     public void Constructor_NullParam_ShouldThrow(string param)
     {
         // Arrange
