@@ -1,14 +1,21 @@
 @page "/Game/{Id}"
+<div class="game-wrapper">
 
-<GameSummary></GameSummary>
-<p>Game Id: @Id</p>
+    <div class="left-col">
+        <GameSummary></GameSummary>
+        <PlayerSummary></PlayerSummary>
 
-<h4>Game</h4>
-<p>Day: @GameState?.Day</p>
+        <div class="bottom-wrapper">
+            <div class="col">
+                <Button OnClickCallback="HandleWaitClick" Variant="ButtonType.Primary">Wait</Button>
+                <Button OnClickCallback="HandleMenuClick" Variant="ButtonType.Primary">Menu</Button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="right-col">
+        <button @onclick="HandleWaitClick">Increment Day</button>
+        <button @onclick="SaveGame">Save Game</button>
+    </div>
 
-<h4>Player</h4>
-<p>Name: @PlayerState?.Name</p>
-
-<button @onclick="IncrementDay">Increment Day</button>
-
-<button @onclick="SaveGame">Save Game</button>
+</div>

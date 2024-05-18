@@ -9,6 +9,8 @@ namespace Shipwrecked.UI.Pages;
 /// </summary>
 public partial class LoadGame
 {
+    [Inject] private IContext Context { get; set; } = default!;
+    
     [Inject] private NavigationManager NavManager { get; set; } = default!;
 
     [Inject] private IStateStorage StateStorage { get; set; } = default!;
@@ -19,5 +21,12 @@ public partial class LoadGame
     {
         States = await StateStorage.ListSavedStatesAsync();
         await base.OnInitializedAsync();
+    }
+
+    private async Task HandleLoadGameClickAsync(Guid id)
+    {
+        State state = await StateStorage.LoadStateAsync(id);
+        Context.SetState(state);
+        NavManager.NavigateTo($"/game/{id}");
     }
 }

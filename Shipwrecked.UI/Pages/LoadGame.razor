@@ -15,7 +15,7 @@
         @foreach (var (state, index) in @States.Select((s, i) => (s, i)))
         {
             <div class="button-wrapper">   
-                <Button Variant="@ButtonType.Banner">
+                <Button Variant="@ButtonType.Banner" OnClickCallback="() => HandleLoadGameClickAsync(state.Game.Id)">
                     <div class="button-content-wrapper">
                         <div class="left-col">
                             Game @(index + 1)

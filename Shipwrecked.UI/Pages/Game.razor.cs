@@ -12,7 +12,7 @@ public partial class Game
     public string? Id { get; set; }
     
     [Inject] 
-    private NavigationManager NavigationManager { get; set; } = default!;
+    private NavigationManager NavManager { get; set; } = default!;
     
     [Inject] 
     private IGameService GameService { get; set; } = default!;
@@ -37,28 +37,37 @@ public partial class Game
         GameState = state.Game;
         PlayerState = state.Player;
         
+        // nav to home screen if the context is empty after pulling from storage
+        if (GameState == null || PlayerState == null)
+            NavManager.NavigateTo("/`");
+        
         await base.OnInitializedAsync();
     }
 
     private async Task LoadGameById(string? stringId)
     {
-        bool validId = Guid.TryParse(stringId, out Guid id); 
-        if (!validId)
+        bool validId = Guid.TryParse(stringId, out Guid id);
+        if (validId && await StateStorage.StateExistsAsync(id))
         {
-            NavigationManager.NavigateTo("/");
-        }
-        else if (validId && await StateStorage.StateExistsAsync(id))
-        {
+            // TODO causes race condition w/ init method on other components! need a way to subscribe to the state!
+            // TODO or could I use the sync version of the local storage service? Seems like a subscription would still be the way to go...
+            Console.WriteLine("loading state from local storage");
             await StateStorage.LoadStateAsync(id);
         }
+        else if (!validId)
+        {
+            NavManager.NavigateTo("/");
+        }
+    }
+    
+    private void HandleWaitClick()
+    {
+        GameService.IncrementDay();
     }
 
-    private void IncrementDay()
+    private void HandleMenuClick()
     {
-        Console.WriteLine("Increment Day called");
         
-        // GameState.Day++; // TODO only updated the game instance for this component... YIKES!
-        GameService.IncrementDay();
     }
 
     private void SaveGame()

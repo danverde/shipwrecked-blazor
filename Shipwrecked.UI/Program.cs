@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Shipwrecked.Application.Context;
@@ -18,6 +19,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 // 3rd party services
 builder.Services.AddBlazoredLocalStorageAsSingleton();
+builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly)); // Not really sure what the scan assemblies does...
 
 // UI services
 builder.Services.AddScoped<IStateStorage, LocalStorageStore>();
