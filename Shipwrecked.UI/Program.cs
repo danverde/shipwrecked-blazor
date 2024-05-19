@@ -19,7 +19,11 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 // 3rd party services
 builder.Services.AddBlazoredLocalStorageAsSingleton();
-builder.Services.AddFluxor(options => options.ScanAssemblies(typeof(Program).Assembly)); // Not really sure what the scan assemblies does...
+builder.Services.AddFluxor(options =>
+{
+    options.ScanAssemblies(typeof(Program).Assembly);
+    options.UseReduxDevTools(); // Don't want to run this on the release version
+}); 
 
 // UI services
 builder.Services.AddScoped<IStateStorage, LocalStorageStore>();

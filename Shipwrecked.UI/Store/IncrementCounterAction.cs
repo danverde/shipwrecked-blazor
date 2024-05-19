@@ -1,4 +1,4 @@
-namespace Shipwrecked.UI.Store.Counter;
+namespace Shipwrecked.UI.Store;
 
 public class IncrementCounterAction
 {
