@@ -11,7 +11,7 @@ public interface IGameService
     /// <summary>
     /// Start a new Game with a given difficulty level
     /// </summary>
-    Game StartGame(GameDifficulty difficulty);
+    void StartNewGame(GameDifficulty difficulty);
     
     /// <summary>
     /// Increment the day in the game

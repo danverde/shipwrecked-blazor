@@ -11,4 +11,8 @@
       <ProjectReference Include="..\Shipwrecked.Infrastructure\Shipwrecked.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Fluxor" Version="5.9.1" />
+    </ItemGroup>
+
 </Project>

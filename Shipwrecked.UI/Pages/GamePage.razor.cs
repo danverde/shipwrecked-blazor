@@ -6,7 +6,7 @@ using Shipwrecked.Infrastructure.Interfaces;
 
 namespace Shipwrecked.UI.Pages;
 
-public partial class Game
+public partial class GamePage
 {
     [Parameter]
     public string? Id { get; set; }

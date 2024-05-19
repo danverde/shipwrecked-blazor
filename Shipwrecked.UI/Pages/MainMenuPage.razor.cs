@@ -7,7 +7,7 @@ namespace Shipwrecked.UI.Pages;
 /// <summary>
 /// Code behind Main Menu page
 /// </summary>
-public partial class MainMenu
+public partial class MainMenuPage
 {
     /// <summary>
     /// <see cref="IDrawerService"/> used to dispatch drawer events

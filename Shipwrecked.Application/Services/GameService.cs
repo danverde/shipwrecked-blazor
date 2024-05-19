@@ -1,4 +1,6 @@
 using Ardalis.GuardClauses;
+using Fluxor;
+using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
@@ -11,21 +13,23 @@ namespace Shipwrecked.Application.Services;
 /// </summary>
 public class GameService : IGameService
 {
+    private IDispatcher Dispatcher { get; set; }
     private readonly IGameSettingsFactory _gameSettingsFactory;
-    private readonly IContext _context;
     
     /// <summary>
     /// Constructor specifying all dependencies
     /// </summary>
-    public GameService(IGameSettingsFactory gameSettingsFactory, IContext context)
+    public GameService(IDispatcher dispatcher, IGameSettingsFactory gameSettingsFactory)
     {
+        Dispatcher = Guard.Against.Null(dispatcher);
         _gameSettingsFactory = Guard.Against.Null(gameSettingsFactory);
-        _context = Guard.Against.Null(context);
     }
 
     /// <inheritdoc />
-    public Game StartGame(GameDifficulty difficulty)
+    public void StartNewGame(GameDifficulty difficulty)
     {
+        Dispatcher.Dispatch(new LoadGameAction());
+        
         var game = new Game
         {
             Id = Guid.NewGuid(),
@@ -33,21 +37,13 @@ public class GameService : IGameService
             Difficulty = difficulty,
             Settings = _gameSettingsFactory.Create(difficulty)
         };
-        
-        _context.SetGameState(game);
 
-        return game;
+        Dispatcher.Dispatch(new GameLoadedAction(game));
     }
     
     /// <inheritdoc />
     public void IncrementDay()
     {
-        Game game = _context.GetState().Game;
-        
-        game.Day += 1;
-        
-        // TODO pretty sure I don't have to update the store at this point...
-        _context.SetGameState(game);
+        Dispatcher.Dispatch(new IncrementDayAction());
     }
-
 }

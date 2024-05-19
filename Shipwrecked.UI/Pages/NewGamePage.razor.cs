@@ -1,18 +1,23 @@
+using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.UI.Models;
+using Shipwrecked.UI.Store.Game;
 
 namespace Shipwrecked.UI.Pages;
 
 /// <summary>
 /// Code behind for the New Game Page
 /// </summary>
-public partial class NewGame
+public partial class NewGamePage
 {
     #region DI
 
+    [Inject]
+    private IState<GameState> GameState { get; set; } = default!;
+    
     [Inject]
     private IStateStorage StateStorage { get; set; } = default!;
     
@@ -30,7 +35,7 @@ public partial class NewGame
 
     private EditContext? FormContext { get; set; }
 
-    private readonly NewGameInput _formInput = new NewGameInput();
+    private readonly NewGameInput _formInput = new();
 
     protected override void OnInitialized()
     {
@@ -39,9 +44,12 @@ public partial class NewGame
     
     private void HandleFormSubmit()
     {
-        var game = GameService.StartGame(_formInput.GameDifficulty);
+        // TODO setting up the character should be part of loading the game!
+        GameService.StartNewGame(_formInput.GameDifficulty);
         PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
 
-        NavManager.NavigateTo($"/game/{game.Id}");
+        // will we have the id in the state yet?
+        if (GameState.Value.Game is not null)
+            NavManager.NavigateTo($"/game/{GameState.Value.Game.Id}");
     }
 }

@@ -7,7 +7,7 @@ namespace Shipwrecked.UI.Pages;
 /// <summary>
 /// Code behind for Load Game page
 /// </summary>
-public partial class LoadGame
+public partial class LoadGamePage
 {
     [Inject] private IContext Context { get; set; } = default!;
     

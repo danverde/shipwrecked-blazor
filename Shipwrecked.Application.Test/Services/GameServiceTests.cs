@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
+using Fluxor;
 using Moq;
+using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
@@ -14,10 +16,11 @@ namespace Shipwrecked.Application.Test.Services;
 /// Unit tests for the <see cref="GameService"/> class
 /// </summary>
 [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
+[SuppressMessage("Performance", "CA1806:Do not ignore method results")]
 public class GameServiceTests
 {
     private readonly Mock<IGameSettingsFactory> _gameSettingsFactoryMock = new();
-    private readonly Mock<IContext> _state = new();
+    private readonly Mock<IDispatcher> _dispatcherMock = new();
     private readonly IGameService _service;
 
     /// <summary>
@@ -25,9 +28,7 @@ public class GameServiceTests
     /// </summary>
     public GameServiceTests()
     {
-        _state.Setup(x => x.GetState()).Returns(new State {Game = new Game()});
-        
-        _service = new GameService(_gameSettingsFactoryMock.Object, _state.Object);
+        _service = new GameService(_dispatcherMock.Object, _gameSettingsFactoryMock.Object);
     }
 
     #region Constructor
@@ -37,15 +38,16 @@ public class GameServiceTests
     /// if any of the parameters are null
     /// </summary>
     [Theory]
+    [InlineData("dispatcher")]
     [InlineData("gameSettingsFactory")]
     public void Constructor_NullParam_ShouldThrow(string param)
     {
         // Arrange
+        var dispatcher = param.Equals("dispatcher") ? null! : _dispatcherMock.Object; 
         var factory = param.Equals("gameSettingsFactory") ? null! : _gameSettingsFactoryMock.Object;
-        var store = param.Equals("gameStore") ? null! : _state.Object; 
         
         // Act
-        Action act = () => new GameService(factory, store);
+        Action act = () => new GameService(dispatcher, factory);
         
         // Assert
         act.Should().Throw<ArgumentNullException>().WithParameterName(param);
@@ -68,10 +70,11 @@ public class GameServiceTests
         _gameSettingsFactoryMock.Setup(x => x.Create(difficulty)).Returns(new GameSettings());
         
         // Act
-        _service.StartGame(difficulty);
+        _service.StartNewGame(difficulty);
         
         // Assert
-        _state.Verify(x => x.SetGameState(It.Is<Game>(g => g.Difficulty == difficulty)), Times.AtLeastOnce);
+        _dispatcherMock.Verify(x => x.Dispatch(It.IsAny<LoadGameAction>()), Times.Once);
+        _dispatcherMock.Verify(x => x.Dispatch(It.IsAny<GameLoadedAction>()), Times.Once);
         _gameSettingsFactoryMock.Verify(x => x.Create(difficulty), Times.AtLeastOnce);
     }
 
@@ -86,13 +89,13 @@ public class GameServiceTests
     public void IncrementDay_ShouldIncrementDay()
     {
         // Arrange
-        _service.StartGame(GameDifficulty.Normal);
+        _service.StartNewGame(GameDifficulty.Normal);
         
         // Act
         _service.IncrementDay();
         
         // Assert
-        _state.Verify(x => x.SetGameState(It.Is<Game>(g => g.Day == 1)), Times.AtLeastOnce);
+        _dispatcherMock.Verify(x => x.Dispatch(It.IsAny<IncrementDayAction>()), Times.Once);
     }
 
     #endregion

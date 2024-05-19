@@ -1,0 +1,17 @@
+using Ardalis.GuardClauses;
+using D = Shipwrecked.Domain.Models;
+
+namespace Shipwrecked.Application.Actions;
+
+/// <summary>
+/// Action triggered when a new game has finished loading
+/// </summary>
+public class GameLoadedAction
+{
+    public D.Game Game { get; set; }
+
+    public GameLoadedAction(D.Game game)
+    {
+        Game = Guard.Against.Null(game);
+    }
+}
