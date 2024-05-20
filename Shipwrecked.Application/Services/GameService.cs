@@ -4,7 +4,6 @@ using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
-using Shipwrecked.Infrastructure.Interfaces;
 
 namespace Shipwrecked.Application.Services;
 
@@ -28,7 +27,7 @@ public class GameService : IGameService
     /// <inheritdoc />
     public void StartNewGame(GameDifficulty difficulty)
     {
-        Dispatcher.Dispatch(new LoadGameAction());
+        Dispatcher.Dispatch(new StartGameAction());
         
         var game = new Game
         {
@@ -39,11 +38,16 @@ public class GameService : IGameService
         };
 
         Dispatcher.Dispatch(new GameLoadedAction(game));
+        // TODO dispatch additional actions to set the player, map, inventory, etc.
+        // TODO hard to unit test this since it's passing the data straight to the dispatcher...
     }
     
     /// <inheritdoc />
-    public void IncrementDay()
+    public void IncrementDay(Game game)
     {
-        Dispatcher.Dispatch(new IncrementDayAction());
+        Guard.Against.Null(game);
+        var newDay = game.Day + 1;
+        
+        Dispatcher.Dispatch(new IncrementDayAction(newDay));
     }
 }

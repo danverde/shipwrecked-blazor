@@ -1,8 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Shipwrecked.Domain.Models;
 
 /// <summary>
 /// A single location object
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class Location
 {
     public int X { get; set; }

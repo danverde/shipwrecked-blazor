@@ -15,17 +15,13 @@ public partial class NewGamePage
 {
     #region DI
 
-    [Inject]
-    private IState<GameState> GameState { get; set; } = default!;
+    [Inject] private IState<GameState> GameState { get; set; } = default!;
     
-    [Inject]
-    private IStateStorage StateStorage { get; set; } = default!;
+    [Inject] private IAppStateStore AppStateStore { get; set; } = default!;
     
-    [Inject] 
-    private IGameService GameService { get; set; } = default!;
+    [Inject] private IGameService GameService { get; set; } = default!;
     
-    [Inject] 
-    private IPlayerService PlayerService { get; set; } = default!;
+    // [Inject] private IPlayerService PlayerService { get; set; } = default!;
 
     [Inject] private NavigationManager NavManager { get; set; } = default!;
     
@@ -46,7 +42,7 @@ public partial class NewGamePage
     {
         // TODO setting up the character should be part of loading the game!
         GameService.StartNewGame(_formInput.GameDifficulty);
-        PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
+        // PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
 
         // will we have the id in the state yet?
         if (GameState.Value.Game is not null)

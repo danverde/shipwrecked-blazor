@@ -3,10 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Shipwrecked.Application.Actions;
 
 /// <summary>
-/// Action triggered when the day ends
+/// Action triggered when starting a new game
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class IncrementDayAction(int day)
-{
-    public int Day { get; set; } = day;
-}
+public class StartGameAction;

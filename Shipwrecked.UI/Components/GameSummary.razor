@@ -1,17 +1,18 @@
-@using Shipwrecked.Infrastructure.Interfaces
-<h1 class="header">Day @GameState?.Day</h1>
+@using Fluxor
+@using Shipwrecked.UI.Store.Game
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+<h1 class="header">Day @GameState.Value.Game?.Day</h1>
 
 @code {
-    [Inject] 
-    private IReadContext Context { get; set; } = default!;
 
-    private Game? GameState { get; set; }
+    [Inject]
+    private IState<GameState> GameState { get; set; }
 
-    protected override void OnInitialized()
-    {
-        Console.WriteLine("game summary init called");
-        GameState = Context.GetState().Game;        
-        base.OnInitialized();
-    }
+    // protected override void OnInitialized()
+    // {
+    //     Console.WriteLine("game summary init called");
+    //     base.OnInitialized();
+    // }
 
 }

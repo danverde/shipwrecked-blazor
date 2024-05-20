@@ -1,6 +1,8 @@
+using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Shipwrecked.Infrastructure;
-using Shipwrecked.Infrastructure.Interfaces;
+using Shipwrecked.Application.Actions;
+using Shipwrecked.Application.Interfaces;
+using Shipwrecked.Infrastructure.Models;
 
 namespace Shipwrecked.UI.Pages;
 
@@ -9,24 +11,25 @@ namespace Shipwrecked.UI.Pages;
 /// </summary>
 public partial class LoadGamePage
 {
-    [Inject] private IContext Context { get; set; } = default!;
-    
     [Inject] private NavigationManager NavManager { get; set; } = default!;
 
-    [Inject] private IStateStorage StateStorage { get; set; } = default!;
+    [Inject] private IAppStateService AppStateService { get; set; } = default!;
 
-    private IList<State> States { get; set; } = new List<State>();
+    [Inject] private IDispatcher Dispatcher { get; set; } = default!;
+    
+    private IList<AppState> States { get; set; } = new List<AppState>();
     
     protected override async Task OnInitializedAsync()
     {
-        States = await StateStorage.ListSavedStatesAsync();
+        States = await AppStateService.ListSavedGamesAsync();
         await base.OnInitializedAsync();
     }
 
-    private async Task HandleLoadGameClickAsync(Guid id)
+    private void HandleLoadGameClick(Guid id)
     {
-        State state = await StateStorage.LoadStateAsync(id);
-        Context.SetState(state);
+        Dispatcher.Dispatch(new LoadGameAction(id));
+        
+        // TODO do I navigate here, or as an effect?
         NavManager.NavigateTo($"/game/{id}");
     }
 }

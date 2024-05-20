@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Shipwrecked.Domain.Enums;
 
 namespace Shipwrecked.Domain.Models;
@@ -5,6 +6,7 @@ namespace Shipwrecked.Domain.Models;
 /// <summary>
 /// Represents a Game object
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class Game
 {
     /// <summary>

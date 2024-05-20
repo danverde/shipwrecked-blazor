@@ -1,8 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Shipwrecked.Domain.Models;
 
 /// <summary>
 /// Object representing the various game settings
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class GameSettings
 {
     /// <summary>

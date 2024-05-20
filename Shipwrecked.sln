@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipwrecked.Application.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipwrecked.Infrastructure.Test", "Shipwrecked.Infrastructure.Test\Shipwrecked.Infrastructure.Test.csproj", "{ADD607C0-987B-4955-9C8C-52A4FADC4F75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipwrecked.UI.Test", "Shipwrecked.UI.Test\Shipwrecked.UI.Test.csproj", "{C0C54D6B-95BC-43A7-B24D-109302B9E399}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipwrecked.Test.Shared", "Shipwrecked.Test.Shared\Shipwrecked.Test.Shared.csproj", "{54F8D296-E959-4785-80B3-B1CD955787B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{ADD607C0-987B-4955-9C8C-52A4FADC4F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADD607C0-987B-4955-9C8C-52A4FADC4F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADD607C0-987B-4955-9C8C-52A4FADC4F75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0C54D6B-95BC-43A7-B24D-109302B9E399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0C54D6B-95BC-43A7-B24D-109302B9E399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0C54D6B-95BC-43A7-B24D-109302B9E399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0C54D6B-95BC-43A7-B24D-109302B9E399}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54F8D296-E959-4785-80B3-B1CD955787B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54F8D296-E959-4785-80B3-B1CD955787B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54F8D296-E959-4785-80B3-B1CD955787B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54F8D296-E959-4785-80B3-B1CD955787B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,5 +69,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{031B3E96-40E8-4A52-944B-65C9E103F879} = {FFD87BCD-92E8-43C7-AD3C-570FBE6C8684}
 		{ADD607C0-987B-4955-9C8C-52A4FADC4F75} = {FFD87BCD-92E8-43C7-AD3C-570FBE6C8684}
+		{C0C54D6B-95BC-43A7-B24D-109302B9E399} = {FFD87BCD-92E8-43C7-AD3C-570FBE6C8684}
+		{54F8D296-E959-4785-80B3-B1CD955787B6} = {FFD87BCD-92E8-43C7-AD3C-570FBE6C8684}
 	EndGlobalSection
 EndGlobal

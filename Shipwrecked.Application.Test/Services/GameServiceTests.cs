@@ -7,8 +7,6 @@ using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
-using Shipwrecked.Infrastructure;
-using Shipwrecked.Infrastructure.Interfaces;
 
 namespace Shipwrecked.Application.Test.Services;
 
@@ -19,8 +17,8 @@ namespace Shipwrecked.Application.Test.Services;
 [SuppressMessage("Performance", "CA1806:Do not ignore method results")]
 public class GameServiceTests
 {
-    private readonly Mock<IGameSettingsFactory> _gameSettingsFactoryMock = new();
     private readonly Mock<IDispatcher> _dispatcherMock = new();
+    private readonly Mock<IGameSettingsFactory> _gameSettingsFactoryMock = new();
     private readonly IGameService _service;
 
     /// <summary>
@@ -55,7 +53,7 @@ public class GameServiceTests
 
     #endregion
 
-    #region StartGame
+    #region StartNewGame
 
     /// <summary>
     /// Verify that StartGame sends a new game to the IGame Store
@@ -73,9 +71,13 @@ public class GameServiceTests
         _service.StartNewGame(difficulty);
         
         // Assert
-        _dispatcherMock.Verify(x => x.Dispatch(It.IsAny<LoadGameAction>()), Times.Once);
-        _dispatcherMock.Verify(x => x.Dispatch(It.IsAny<GameLoadedAction>()), Times.Once);
         _gameSettingsFactoryMock.Verify(x => x.Create(difficulty), Times.AtLeastOnce);
+        _dispatcherMock.Verify(x => x.Dispatch(It.IsAny<StartGameAction>()), Times.Once);
+        _dispatcherMock.Verify(
+            x => x.Dispatch(It.Is<GameLoadedAction>(action =>
+                action.Game.Day == 1 &&
+                action.Game.Difficulty == difficulty))
+            , Times.Once);
     }
 
     #endregion
@@ -89,13 +91,30 @@ public class GameServiceTests
     public void IncrementDay_ShouldIncrementDay()
     {
         // Arrange
-        _service.StartNewGame(GameDifficulty.Normal);
+        var game = new Game
+        {
+            Day = 1
+        };
         
         // Act
-        _service.IncrementDay();
+        _service.IncrementDay(game);
         
         // Assert
-        _dispatcherMock.Verify(x => x.Dispatch(It.IsAny<IncrementDayAction>()), Times.Once);
+        _dispatcherMock.Verify(x => x.Dispatch(It.Is<IncrementDayAction>(action => action.Day == game.Day + 1)), Times.Once);
+    }
+
+    /// <summary>
+    /// Verify IncrementDay will throw an <see cref="ArgumentNullException"/>
+    /// if Game is null.
+    /// </summary>
+    [Fact]
+    public void IncrementDay_NullGame_ShouldThrow()
+    {
+        // Arrange
+        Action act = () => _service.IncrementDay(null!);
+        
+        // Act/Assert
+        act.Should().Throw<ArgumentNullException>().WithParameterName("game");
     }
 
     #endregion

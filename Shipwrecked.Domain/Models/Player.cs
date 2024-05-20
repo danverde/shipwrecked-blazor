@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Shipwrecked.Domain.Models;
 
+[ExcludeFromCodeCoverage]
 public class Player : Character
 {
     public int Stamina { get; set; }

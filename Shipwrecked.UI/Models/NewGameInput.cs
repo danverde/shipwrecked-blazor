@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using Shipwrecked.Domain.Enums;
 
 namespace Shipwrecked.UI.Models;
@@ -6,6 +7,7 @@ namespace Shipwrecked.UI.Models;
 /// <summary>
 /// Represents the Form submitted to start a new game
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class NewGameInput
 {
     /// <summary>

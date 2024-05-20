@@ -1,8 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Shipwrecked.UI.Models;
 
 /// <summary>
 /// Represents the payload of a DrawerToggled Event
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class DrawerArgs : EventArgs
 {
     /// <summary>
