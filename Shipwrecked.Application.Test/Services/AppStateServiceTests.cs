@@ -163,8 +163,7 @@ public class AppStateServiceTests
     public async Task SaveAsync_ValidInput_ShouldSave()
     {
         // Arrange
-        var id = Guid.NewGuid();
-        var game = DomainFactory.CreateGame(id);
+        var game = DomainFactory.CreateGame();
         var action = new SaveGameAction(game);
 
         var expected = new AppState
@@ -173,28 +172,18 @@ public class AppStateServiceTests
         };
         
         // Act
-        AppState result = await _service.SaveAsync(id, action);
+        AppState result = await _service.SaveAsync(action);
         
         // Assert
         result.Should().BeEquivalentTo(expected);
-        _appStateStoreMock.Verify(x => x.SaveAsync(id, It.IsAny<AppState>()), Times.Once());
+        _appStateStoreMock.Verify(x => x.SaveAsync(It.IsAny<AppState>()), Times.Once());
     }
 
-    [Fact]
-    public async Task SaveAsync_EmptyId_ShouldThrow()
-    {
-        // Arrange
-        Func<Task> act = async () => await _service.SaveAsync(Guid.Empty, new SaveGameAction(new Game()));
-        
-        // Act/Assert
-        await act.Should().ThrowAsync<ArgumentException>().WithParameterName("id");
-    }
-    
     [Fact]
     public async Task SaveAsync_NullAction_ShouldThrow()
     {
         // Arrange
-        Func<Task> act = async () => await _service.SaveAsync(Guid.NewGuid(),null!);
+        Func<Task> act = async () => await _service.SaveAsync(null!);
         
         // Act/Assert
         await act.Should().ThrowAsync<ArgumentException>().WithParameterName("saveGameAction");

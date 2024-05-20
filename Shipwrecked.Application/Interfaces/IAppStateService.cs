@@ -26,7 +26,7 @@ public interface IAppStateService
     /// <summary>
     /// Save the current state
     /// </summary>
-    Task<AppState> SaveAsync(Guid id, SaveGameAction action);
+    Task<AppState> SaveAsync(SaveGameAction action);
 
     /// <summary>
     /// Delete a saved game by its id

@@ -20,12 +20,12 @@ public interface IAppStateStore
     /// <summary>
     /// Load a single game by its Id
     /// </summary>
-    Task<AppState> LoadAsync(Guid id);
+    Task<AppState?> LoadAsync(Guid id);
     
     /// <summary>
     /// Save the current state
     /// </summary>
-    Task SaveAsync(Guid gameId, AppState appState);
+    Task SaveAsync(AppState appState);
 
     /// <summary>
     /// Delete a saved game by its id

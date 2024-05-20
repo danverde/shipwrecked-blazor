@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Fluxor;
 using D = Shipwrecked.Domain.Models;
 
@@ -6,6 +7,7 @@ namespace Shipwrecked.UI.Store.Game;
 /// <summary>
 /// Object representing the Game State
 /// </summary>
+[ExcludeFromCodeCoverage]
 [FeatureState]
 public class GameState
 {

@@ -8,6 +8,7 @@ namespace Shipwrecked.UI.Store.Effects;
 
 /// <summary>
 /// Game action side effects
+/// TODO switch actions to load/save appState?
 /// </summary>
 public class GameEffect(IAppStateService appStateService)
 {
@@ -17,19 +18,28 @@ public class GameEffect(IAppStateService appStateService)
     /// Side effect that handles loading a saved game
     /// </summary>
     [EffectMethod]
-    public async Task LoadGameEffectAsync(LoadGameAction action, IDispatcher dispatcher)
+    public async Task LoadAppStateEffectAsync(LoadGameAction action, IDispatcher dispatcher)
     {
-        AppState appState = await _appStateService.LoadAsync(action.Id);
-        dispatcher.Dispatch(new GameLoadedAction(appState.Game));
+        Guard.Against.Null(action);
+        Guard.Against.Null(dispatcher);
+        
+        AppState? appState = await _appStateService.LoadAsync(action.Id);
+        if (appState is not null)
+            dispatcher.Dispatch(new GameLoadedAction(appState.Game));
+        else
+            throw new NotImplementedException("Need to implement failure actions!");
     }
 
     /// <summary>
     /// Side effects from saving a game
     /// </summary>
     [EffectMethod]
-    public async Task SaveGameEffectAsync(SaveGameAction action, IDispatcher dispatcher)
+    public async Task SaveAppStateEffectAsync(SaveGameAction action, IDispatcher dispatcher)
     {
-        AppState appState = await _appStateService.SaveAsync(action.Game.Id, action);
+        Guard.Against.Null(action);
+        Guard.Against.Null(dispatcher);
+        
+        AppState appState = await _appStateService.SaveAsync(action);
         dispatcher.Dispatch(new GameLoadedAction(appState.Game));
     }
 }

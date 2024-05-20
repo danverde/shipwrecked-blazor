@@ -45,15 +45,14 @@ public class AppStateService : IAppStateService
     }
 
     /// <inheritdoc />
-    public async Task<AppState> SaveAsync(Guid id, SaveGameAction saveGameAction)
+    public async Task<AppState> SaveAsync(SaveGameAction saveGameAction)
     {
-        Guard.Against.NullOrEmpty(id);
         Guard.Against.Null(saveGameAction);
         
         // TODO use auto-mapper
         var appState = new AppState {Game = saveGameAction.Game};
         
-        await _appStateStore.SaveAsync(saveGameAction.Game.Id, appState);
+        await _appStateStore.SaveAsync(appState);
         return appState;
     }
 

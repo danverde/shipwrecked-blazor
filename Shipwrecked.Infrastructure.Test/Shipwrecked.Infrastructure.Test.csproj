@@ -23,4 +23,9 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Shipwrecked.Infrastructure\Shipwrecked.Infrastructure.csproj" />
+      <ProjectReference Include="..\Shipwrecked.Test.Shared\Shipwrecked.Test.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
