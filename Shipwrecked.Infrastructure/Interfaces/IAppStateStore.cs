@@ -10,27 +10,27 @@ public interface IAppStateStore
     /// <summary>
     /// Determines if a state exists in storage
     /// </summary>
-    Task<bool> SaveGameExistsAsync(Guid id);
+    Task<bool> ExistsAsync(Guid id);
     
     /// <summary>
     /// Get a list of all saved games.
     /// </summary>
-    Task<IList<AppState>> ListSavedGamesAsync();
+    Task<IList<AppState>> ListAppStatesAsync();
 
     /// <summary>
     /// Load a single game by its Id
     /// </summary>
-    Task<AppState> LoadGameAsync(Guid id);
+    Task<AppState> LoadAsync(Guid id);
     
     /// <summary>
     /// Save the current state
     /// </summary>
-    Task SaveGameAsync(Guid gameId, AppState appState);
+    Task SaveAsync(Guid gameId, AppState appState);
 
     /// <summary>
     /// Delete a saved game by its id
     /// </summary>
-    Task DeleteGameAsync(Guid id);
+    Task DeleteAsync(Guid id);
     
     // /// <summary>
     // /// Delete multiple games by id

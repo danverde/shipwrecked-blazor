@@ -19,7 +19,7 @@ public class GameEffect(IAppStateService appStateService)
     [EffectMethod]
     public async Task LoadGameEffectAsync(LoadGameAction action, IDispatcher dispatcher)
     {
-        AppState appState = await _appStateService.LoadGameAsync(action.Id);
+        AppState appState = await _appStateService.LoadAsync(action.Id);
         dispatcher.Dispatch(new GameLoadedAction(appState.Game));
     }
 
@@ -29,7 +29,7 @@ public class GameEffect(IAppStateService appStateService)
     [EffectMethod]
     public async Task SaveGameEffectAsync(SaveGameAction action, IDispatcher dispatcher)
     {
-        AppState appState = await _appStateService.SaveGameAsync(action.Game.Id, action);
+        AppState appState = await _appStateService.SaveAsync(action.Game.Id, action);
         dispatcher.Dispatch(new GameLoadedAction(appState.Game));
     }
 }

@@ -12,11 +12,13 @@ public class DomainFactory
     /// <summary>
     /// Generate a Game object
     /// </summary>
-    public static Game CreateGame()
+    public static Game CreateGame(Guid? id = null)
     {
-        return new Game()
+        var gameId = id ?? Guid.NewGuid(); 
+        
+        return new Game
         {
-            Id = Guid.NewGuid(),
+            Id = gameId,
             Difficulty = GameDifficulty.Normal,
             Settings = new GameSettings()
         };

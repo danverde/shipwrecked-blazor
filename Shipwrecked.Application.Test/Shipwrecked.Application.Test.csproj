@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Shipwrecked.Application\Shipwrecked.Application.csproj" />
+      <ProjectReference Include="..\Shipwrecked.Test.Shared\Shipwrecked.Test.Shared.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Blazored.LocalStorage;
+﻿using Blazored.LocalStorage;
 using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

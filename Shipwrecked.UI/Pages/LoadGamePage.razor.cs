@@ -21,7 +21,7 @@ public partial class LoadGamePage
     
     protected override async Task OnInitializedAsync()
     {
-        States = await AppStateService.ListSavedGamesAsync();
+        States = await AppStateService.ListAsync();
         await base.OnInitializedAsync();
     }
 

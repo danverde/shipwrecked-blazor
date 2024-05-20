@@ -17,6 +17,4 @@ public interface IGameService
     /// Increment the day in the game
     /// </summary>
     void IncrementDay(Game game);
-    
-    
 }

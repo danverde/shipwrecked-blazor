@@ -24,14 +24,14 @@ public class AppStateStore : IAppStateStore
     }
 
     /// <inheritdoc />
-    public async Task<bool> SaveGameExistsAsync(Guid id)
+    public async Task<bool> ExistsAsync(Guid id)
     {
         var key = $"{StatePrefix}{id}";
         return await _localStorageService.ContainKeyAsync(key);
     }
     
     /// <inheritdoc />
-    public async Task<IList<AppState>> ListSavedGamesAsync()
+    public async Task<IList<AppState>> ListAppStatesAsync()
     {
         var r = new Regex("^sg:");
         
@@ -49,7 +49,7 @@ public class AppStateStore : IAppStateStore
     }
 
     /// <inheritdoc />
-    public async Task<AppState> LoadGameAsync(Guid id)
+    public async Task<AppState> LoadAsync(Guid id)
     {
         var key = $"{StatePrefix}{id}";
         AppState appState = await _localStorageService.GetItemAsync<AppState>(key);
@@ -58,7 +58,7 @@ public class AppStateStore : IAppStateStore
     }
 
     /// <inheritdoc />
-    public async Task SaveGameAsync(Guid gameId, AppState appState)
+    public async Task SaveAsync(Guid gameId, AppState appState)
     {
         Guard.Against.Null(appState);
 
@@ -67,7 +67,7 @@ public class AppStateStore : IAppStateStore
     }
 
     /// <inheritdoc />
-    public async Task DeleteGameAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
         var key = $"{StatePrefix}{id}";
         await _localStorageService.RemoveItemAsync(key);

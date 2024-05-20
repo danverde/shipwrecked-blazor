@@ -3,7 +3,6 @@ using Shared;
 using Shipwrecked.Application.Actions;
 using Shipwrecked.Domain.Models;
 using Shipwrecked.UI.Store.Game;
-using Xunit.Sdk;
 
 namespace Shipwrecked.UI.Test.Reducers;
 
