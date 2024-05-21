@@ -21,6 +21,8 @@ public partial class GamePage
 
     [Inject] private IDispatcher Dispatcher { get; set; } = default!;
 
+    private bool MenuModalOpen { get; set; } = false;
+
     protected override void OnInitialized()
     {
         var idIsValid = Guid.TryParse(Id, out Guid gameId);
@@ -47,7 +49,7 @@ public partial class GamePage
 
     private void HandleMenuClick()
     {
-        throw new NotImplementedException();
+        MenuModalOpen = true;
     }
 
     private void SaveGame()

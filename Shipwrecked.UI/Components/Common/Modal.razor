@@ -1,5 +1,9 @@
-<h3>Modal</h3>
+<div class="overlay @(IsOpen ? "visible" : "hidden")" @onclick="CloseModal"></div>
 
-@code {
-    
-}
+<div class="modal @(IsOpen ? "visible" : "hidden")">
+    @if (IsCloseable)
+    {
+         <span class="close-button" @onclick="CloseModal">X</span>
+    }
+    @ChildContent
+</div>
