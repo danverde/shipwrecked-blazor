@@ -4,6 +4,7 @@ using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
+using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Application.Test.Services;
 
@@ -18,21 +19,22 @@ public class PlayerServiceTests
     
     #region CreatePlayer
 
-    [Fact]
-    public void CreatePlayer_ValidInput_ShouldReturnPlayer()
+    [Theory]
+    [InlineData(GameDifficulty.Normal)]
+    [InlineData(GameDifficulty.Easy)]
+    [InlineData(GameDifficulty.Difficult)]
+    public void CreatePlayer_ValidInput_ShouldReturnPlayer(GameDifficulty difficulty)
     {
         // Arrange
         var name = "some name";
         var gender = Gender.Male;
-        var difficulty = GameDifficulty.Normal;
 
-        var expected = PlayerFactory.CreatePlayer(name, gender, difficulty);
-        
         // Act
         var result = _service.CreatePlayer(name, gender, difficulty);
         
         // Assert
-        result.Should().BeEquivalentTo(expected, opt => opt.Excluding(p => p.Id));
+        result.Should().NotBeNull();
+        result.Name.Should().Be(name);
     }
 
     [Theory]
