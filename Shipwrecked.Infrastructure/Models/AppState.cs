@@ -9,11 +9,10 @@ namespace Shipwrecked.Infrastructure.Models;
 [ExcludeFromCodeCoverage]
 public class AppState
 {
-    public Game Game { get; set; }
+    public Game Game { get; set; } = default!;
+    public Player Player { get; set; } = default!;
 
     // public Map Map { get; set; }
-    //
-    // public Player Player { get; set; }
-    //
+
     // public Inventory Inventory { get; set; }
 }

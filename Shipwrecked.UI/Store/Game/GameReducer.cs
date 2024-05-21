@@ -1,5 +1,5 @@
 using Fluxor;
-using Shipwrecked.Application.Actions;
+using Shipwrecked.UI.Store.Game.Actions;
 
 namespace Shipwrecked.UI.Store.Game;
 
@@ -13,7 +13,7 @@ public static class GameReducer
     /// </summary>
     [ReducerMethod]
     public static GameState LoadGameReducer(GameState state, LoadGameAction action) =>
-        new(gameLoaded: false, gameLoading: true, game: null);
+        new(loaded: false, loading: true, game: null);
 
     /// <summary>
     /// Reducer for the <see cref="StartGameAction"/> action.
@@ -40,7 +40,7 @@ public static class GameReducer
     public static GameState IncrementDayReducer(GameState state, IncrementDayAction action)
     {
         // TODO come up with a deep clone method for the game?
-        var newState = new GameState(state.GameLoading, state.GameLoaded, state.Game);
+        var newState = new GameState(state.Loading, state.Loaded, state.Game);
         if (newState.Game is not null)
             newState.Game!.Day = action.Day;
         return newState;

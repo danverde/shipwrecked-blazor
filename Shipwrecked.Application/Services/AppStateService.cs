@@ -1,6 +1,6 @@
 using Ardalis.GuardClauses;
-using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
+using Shipwrecked.Domain.Models;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.Infrastructure.Models;
 
@@ -45,12 +45,12 @@ public class AppStateService : IAppStateService
     }
 
     /// <inheritdoc />
-    public async Task<AppState> SaveAsync(SaveGameAction saveGameAction)
+    public async Task<AppState> SaveAsync(Game game, Player player)
     {
-        Guard.Against.Null(saveGameAction);
+        Guard.Against.Null(game);
+        Guard.Against.Null(player);
         
-        // TODO use auto-mapper
-        var appState = new AppState {Game = saveGameAction.Game};
+        var appState = new AppState {Game = game, Player = player};
         
         await _appStateStore.SaveAsync(appState);
         return appState;

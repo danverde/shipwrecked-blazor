@@ -1,8 +1,8 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
-using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
+using Shipwrecked.UI.Store.Game.Actions;
 
 namespace Shipwrecked.UI.Pages;
 

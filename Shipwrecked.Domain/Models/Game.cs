@@ -13,17 +13,17 @@ public class Game
     /// A unique identifier for the game
     /// </summary>
     public Guid Id { get; set; }
-    
+
     /// <summary>
     /// The current day in the game
     /// </summary>
-    public int Day { get; set; }
-    
+    public int Day { get; set; } = 1;
+
     /// <summary>
     /// The difficulty level of the game.
     /// Used to set some game settings
     /// </summary>
-    public GameDifficulty Difficulty { get; set; }
+    public GameDifficulty Difficulty { get; set; } = GameDifficulty.Normal;
 
     /// <summary>
     /// The game settings

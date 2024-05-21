@@ -32,8 +32,8 @@ public interface IAppStateStore
     /// </summary>
     Task DeleteAsync(Guid id);
     
-    // /// <summary>
-    // /// Delete multiple games by id
-    // /// </summary>
-    // Task DeleteGamesAsync(IEnumerable<Guid> ids);
+    /// <summary>
+    /// Delete multiple games by id
+    /// </summary>
+    Task DeleteManyAsync(IList<Guid> ids);
 }

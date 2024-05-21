@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using Ardalis.GuardClauses;
 using D = Shipwrecked.Domain.Models;
 
-namespace Shipwrecked.Application.Actions;
+namespace Shipwrecked.UI.Store.Game.Actions;
 
 /// <summary>
 /// Action triggered when a new game has finished loading

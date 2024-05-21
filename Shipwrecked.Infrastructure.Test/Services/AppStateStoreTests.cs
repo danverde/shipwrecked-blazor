@@ -245,4 +245,47 @@ public class AppStateStoreTests
     }
 
     #endregion
+
+    #region DeleteManyAsync
+
+    [Fact]
+    public async Task DeleteManyAsync_ValidInput_ShouldCallDelete()
+    {
+        // Arrange
+        var id1 = Guid.NewGuid();
+        var id2 = Guid.NewGuid();
+        var ids = new List<Guid> {id1, id2};
+
+        _localStorageServiceMock.Setup(x =>
+            x.RemoveItemsAsync(It.IsAny<List<string>>(), It.IsAny<CancellationToken>()));
+        
+        // Act
+        await _store.DeleteManyAsync(ids);
+        
+        // Assert
+        _localStorageServiceMock.Verify(x =>
+            x.RemoveItemsAsync(It.IsAny<List<string>>(), It.IsAny<CancellationToken>()), Times.Once);
+    }
+    
+    [Fact]
+    public async Task DeleteManyAsync_EmptyIds_ShouldNotThrow()
+    {
+        // Arrange
+        Func<Task> act = async () => await _store.DeleteManyAsync(new List<Guid>());
+        
+        // Act/Assert
+        await act.Should().NotThrowAsync();
+    }
+    
+    [Fact]
+    public async Task DeleteManyAsync_NullIds_ShouldThrow()
+    {
+        // Arrange
+        Func<Task> act = async () => await _store.DeleteManyAsync(null!);
+        
+        // Act/Assert
+        await act.Should().ThrowAsync<ArgumentNullException>().WithParameterName("ids");
+    }
+
+    #endregion
 }

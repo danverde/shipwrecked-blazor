@@ -1,8 +1,8 @@
 using FluentAssertions;
 using Shared;
-using Shipwrecked.Application.Actions;
 using Shipwrecked.Domain.Models;
 using Shipwrecked.UI.Store.Game;
+using Shipwrecked.UI.Store.Game.Actions;
 
 namespace Shipwrecked.UI.Test.Reducers;
 

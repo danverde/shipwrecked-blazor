@@ -1,4 +1,4 @@
-using Shipwrecked.Application.Actions;
+using Shipwrecked.Domain.Models;
 using Shipwrecked.Infrastructure.Models;
 
 namespace Shipwrecked.Application.Interfaces;
@@ -26,15 +26,10 @@ public interface IAppStateService
     /// <summary>
     /// Save the current state
     /// </summary>
-    Task<AppState> SaveAsync(SaveGameAction action);
+    Task<AppState> SaveAsync(Game game, Player player);
 
     /// <summary>
     /// Delete a saved game by its id
     /// </summary>
     Task DeleteAsync(Guid id);
-    
-    // /// <summary>
-    // /// Delete multiple games by id
-    // /// </summary>
-    // Task DeleteGamesAsync(IEnumerable<Guid> ids);
 }

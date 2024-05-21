@@ -1,13 +1,16 @@
 using FluentAssertions;
+using Shared;
 using Shipwrecked.Application.Factories;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Application.Test.Factories;
 
+/// <summary>
+/// Unit tests for the <see cref="PlayerFactory"/>
+/// </summary>
 public class PlayerFactoryTests
 {
-    // TODO convert to class data
     [Theory]
     [InlineData(GameDifficulty.Normal)]
     [InlineData(GameDifficulty.Easy)]
@@ -29,14 +32,8 @@ public class PlayerFactoryTests
         result.Inventory.Should().NotBeNull();
     }
     
-    
-    // TODO switch to class data!
     [Theory]
-    [InlineData("")]
-    [InlineData(" ")]
-    [InlineData("\n")]
-    [InlineData("\t")]
-    [InlineData(null)]
+    [ClassData(typeof(NullAndWhitespaceStrings))]
     public void CreatePlayer_InvalidName_ShouldThrow(string name)
     {
         // Arrange

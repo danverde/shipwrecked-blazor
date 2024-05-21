@@ -80,13 +80,13 @@ public class AppStateStore : IAppStateStore
         await _localStorageService.RemoveItemAsync(key);
     }
     
-    // /// <inheritdoc />
-    // public async Task DeleteGamesAsync(IEnumerable<Guid> ids)
-    // {
-    //     Guard.Against.Null(ids);
-    //     
-    //     IEnumerable<string> keys = ids.ToList().Select(id => $"{StatePrefix}{id}");
-    //     
-    //     await _localStorageService.RemoveItemsAsync(keys);
-    // }
+    /// <inheritdoc />
+    public async Task DeleteManyAsync(IList<Guid> ids)
+    {
+        Guard.Against.Null(ids);
+        
+        var keys = ids.ToList().Select(id => $"{StatePrefix}{id}").ToList();
+        
+        await _localStorageService.RemoveItemsAsync(keys);
+    }
 }

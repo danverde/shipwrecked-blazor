@@ -5,6 +5,8 @@ using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.UI.Models;
 using Shipwrecked.UI.Store.Game;
+using Shipwrecked.UI.Store.Game.Actions;
+using Dispatcher = Fluxor.Dispatcher;
 
 namespace Shipwrecked.UI.Pages;
 
@@ -16,13 +18,9 @@ public partial class NewGamePage
     #region DI
 
     [Inject] private IState<GameState> GameState { get; set; } = default!;
-    
-    [Inject] private IAppStateStore AppStateStore { get; set; } = default!;
-    
     [Inject] private IGameService GameService { get; set; } = default!;
-    
-    // [Inject] private IPlayerService PlayerService { get; set; } = default!;
-
+    [Inject] private IPlayerService PlayerService { get; set; } = default!;
+    [Inject] private IDispatcher Dispatcher { get; set; } = default!;
     [Inject] private NavigationManager NavManager { get; set; } = default!;
     
     #endregion
@@ -40,9 +38,11 @@ public partial class NewGamePage
     
     private void HandleFormSubmit()
     {
-        // TODO setting up the character should be part of loading the game!
-        GameService.StartNewGame(_formInput.GameDifficulty);
-        // PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
+        Dispatcher.Dispatch(new StartGameAction());
+        var game =  GameService.StartNewGame(_formInput.GameDifficulty);
+        var player =  PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
+        
+        Dispatcher.Dispatch(new GameLoadedAction(game));
 
         // will we have the id in the state yet?
         if (GameState.Value.Game is not null)

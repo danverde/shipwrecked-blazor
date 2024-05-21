@@ -1,12 +1,13 @@
 using FluentAssertions;
 using Moq;
 using Shared;
-using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Models;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.Infrastructure.Models;
+using Shipwrecked.UI.Store.Game.Actions;
+using AppState = Shipwrecked.Infrastructure.Models.AppState;
 
 namespace Shipwrecked.Application.Test.Services;
 
@@ -164,29 +165,35 @@ public class AppStateServiceTests
     {
         // Arrange
         var game = DomainFactory.CreateGame();
-        var action = new SaveGameAction(game);
+        var player = DomainFactory.CreatePlayer();
 
         var expected = new AppState
         {
-            Game = game
+            Game = game,
+            Player = player
         };
         
         // Act
-        AppState result = await _service.SaveAsync(action);
+        AppState result = await _service.SaveAsync(game, player);
         
         // Assert
         result.Should().BeEquivalentTo(expected);
         _appStateStoreMock.Verify(x => x.SaveAsync(It.IsAny<AppState>()), Times.Once());
     }
 
-    [Fact]
-    public async Task SaveAsync_NullAction_ShouldThrow()
+    [Theory]
+    [InlineData("game")]
+    [InlineData("player")]
+    public async Task SaveAsync_NullParams_ShouldThrow(string param)
     {
         // Arrange
-        Func<Task> act = async () => await _service.SaveAsync(null!);
+        var game = param == "game" ? null! : new Game();
+        var player = param == "player" ? null! : new Player();
+        
+        Func<Task> act = async () => await _service.SaveAsync(game, player);
         
         // Act/Assert
-        await act.Should().ThrowAsync<ArgumentException>().WithParameterName("saveGameAction");
+        await act.Should().ThrowAsync<ArgumentException>().WithParameterName(param);
     }
     
     #endregion

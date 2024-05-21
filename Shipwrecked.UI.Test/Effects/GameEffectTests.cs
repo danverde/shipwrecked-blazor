@@ -2,10 +2,10 @@ using FluentAssertions;
 using Fluxor;
 using Moq;
 using Shared;
-using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
 using Shipwrecked.UI.Store.Effects;
+using Shipwrecked.UI.Store.Game.Actions;
 
 namespace Shipwrecked.UI.Test.Effects;
 
@@ -106,19 +106,21 @@ public class GameEffectTests
     {
         // Arrange
         var game = DomainFactory.CreateGame();
-        var saveAction = new SaveGameAction(game);
+        var player = DomainFactory.CreatePlayer();
+        var saveAction = new SaveGameAction(game, player);
         var appState = new AppState
         {
-            Game = game
+            Game = game,
+            Player = player
         };
 
-        _appStateServiceMock.Setup(x => x.SaveAsync(saveAction)).ReturnsAsync(appState);
+        _appStateServiceMock.Setup(x => x.SaveAsync(game, player)).ReturnsAsync(appState);
         
         // Act
         await _gameEffect.SaveAppStateEffectAsync(saveAction, _dispatcherMock.Object);
         
         // Assert
-        _appStateServiceMock.Verify(x => x.SaveAsync(saveAction), Times.Once);
+        _appStateServiceMock.Verify(x => x.SaveAsync(game, player), Times.Once);
         _dispatcherMock.Verify(x => x.Dispatch(It.Is<GameLoadedAction>(action => action.Game.Id == game.Id)), Times.Once);
     }
     
@@ -136,7 +138,7 @@ public class GameEffectTests
     public async Task SaveGameEffectAsync_NullDispatcher_ShouldThrow()
     {
         // Arrange
-        var action = new SaveGameAction(DomainFactory.CreateGame());
+        var action = new SaveGameAction(DomainFactory.CreateGame(), DomainFactory.CreatePlayer());
         Func<Task> act = async () => await _gameEffect.SaveAppStateEffectAsync(action, null!);
         
         // Act/Assert

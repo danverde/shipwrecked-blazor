@@ -1,8 +1,8 @@
 using Ardalis.GuardClauses;
 using Fluxor;
-using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
+using Shipwrecked.UI.Store.Game.Actions;
 
 namespace Shipwrecked.UI.Store.Effects;
 
@@ -39,7 +39,7 @@ public class GameEffect(IAppStateService appStateService)
         Guard.Against.Null(action);
         Guard.Against.Null(dispatcher);
         
-        AppState appState = await _appStateService.SaveAsync(action);
+        AppState appState = await _appStateService.SaveAsync(action.Game, action.Player);
         dispatcher.Dispatch(new GameLoadedAction(appState.Game));
     }
 }

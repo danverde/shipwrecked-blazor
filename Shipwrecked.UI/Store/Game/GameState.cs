@@ -7,12 +7,10 @@ namespace Shipwrecked.UI.Store.Game;
 /// <summary>
 /// Object representing the Game State
 /// </summary>
-[ExcludeFromCodeCoverage]
 [FeatureState]
-public class GameState
+[ExcludeFromCodeCoverage]
+public class GameState : BaseState
 {
-    public bool GameLoading { get; set; }
-    public bool GameLoaded { get; set; }
     public D.Game? Game { get; set; }
     
     /// <summary>
@@ -23,10 +21,10 @@ public class GameState
     /// <summary>
     /// Public constructor specifying all properties
     /// </summary>
-    public GameState(bool gameLoading, bool gameLoaded, D.Game? game)
+    public GameState(bool loading, bool loaded, D.Game? game)
     {
-        GameLoading = gameLoading;
-        GameLoaded = gameLoaded;
+        Loading = loading;
+        Loaded = loaded;
         Game = game;
     }
 }
