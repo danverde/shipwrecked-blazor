@@ -28,8 +28,6 @@ public partial class LoadGamePage
     private void HandleLoadGameClick(Guid id)
     {
         Dispatcher.Dispatch(new LoadGameAction(id));
-        
-        // TODO do I navigate here, or as an effect?
         NavManager.NavigateTo($"/game/{id}");
     }
 }

@@ -11,4 +11,9 @@ namespace Shipwrecked.UI.Store.Player.Actions;
 public class SetPlayerAction
 {
     public D.Player? Player { get; set; }
+
+    public SetPlayerAction(D.Player player)
+    {
+        Player = player;
+    }
 }

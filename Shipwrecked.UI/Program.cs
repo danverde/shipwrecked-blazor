@@ -34,7 +34,7 @@ builder.Services.AddScoped<IAppStateStore, AppStateStore>();
 builder.Services.AddScoped<IAppStateService, AppStateService>();
 builder.Services.AddSingleton<IGameSettingsFactory, GameSettingsFactory>();
 builder.Services.AddScoped<IGameService, GameService>();
-// builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
 
 
 await builder.Build().RunAsync();

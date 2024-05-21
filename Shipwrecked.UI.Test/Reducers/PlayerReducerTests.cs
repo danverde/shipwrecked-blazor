@@ -16,7 +16,7 @@ public class PlayerReducerTests
         // Arrange
         var player = DomainFactory.CreatePlayer();
         var state = new PlayerState(null!);
-        var action = new SetPlayerAction{Player = player};
+        var action = new SetPlayerAction(player);
 
         var expected = new PlayerState(player);
         
