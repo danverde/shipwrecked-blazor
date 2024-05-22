@@ -13,7 +13,10 @@
     margin-top: 30px;
     margin-bottom: 15px;
     padding-right: 15px;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    scrollbar-color: #0e2f41 #226f99;
 }
 
 .item-wrapper {
@@ -28,10 +31,6 @@
     padding: 30px;
     text-align: center;
     font-weight: bold;
-}
-
-button {
-    margin-bottom: 15px;
 }
 
 .button-content-wrapper {
@@ -78,8 +77,11 @@ span:first-child {
     font-size: var(--font-size-xs-small);
 }
 
-.delete-button:hover {
-    fill: red;
+.delete-button-wrapper {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
         
