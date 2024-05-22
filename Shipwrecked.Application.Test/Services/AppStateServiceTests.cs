@@ -5,8 +5,6 @@ using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Models;
 using Shipwrecked.Infrastructure.Interfaces;
-using Shipwrecked.Infrastructure.Models;
-using Shipwrecked.UI.Store.Game.Actions;
 using AppState = Shipwrecked.Infrastructure.Models.AppState;
 
 namespace Shipwrecked.Application.Test.Services;

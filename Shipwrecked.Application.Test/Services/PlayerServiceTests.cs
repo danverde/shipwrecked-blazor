@@ -1,10 +1,8 @@
 using FluentAssertions;
 using Shared;
-using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
-using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Application.Test.Services;
 

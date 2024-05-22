@@ -6,6 +6,7 @@ namespace Shipwrecked.UI.Store.Game.Actions;
 
 /// <summary>
 /// Action triggered when a new game has finished loading
+/// TODO convert these save/load actions to an AppStateLoaded action
 /// </summary>
 [ExcludeFromCodeCoverage]
 public class GameLoadedAction

@@ -10,17 +10,17 @@ using Shipwrecked.UI.Store.Game.Actions;
 namespace Shipwrecked.UI.Test.Effects;
 
 /// <summary>
-/// Unit tests for the <see cref="GameEffect"/> class
+/// Unit tests for the <see cref="AppStateEffect"/> class
 /// </summary>
-public class GameEffectTests
+public class AppStateEffectTests
 {
     private readonly Mock<IAppStateService> _appStateServiceMock = new();
     private readonly Mock<IDispatcher> _dispatcherMock = new();
-    private readonly GameEffect _gameEffect;
+    private readonly AppStateEffect _appStateEffect;
 
-    public GameEffectTests()
+    public AppStateEffectTests()
     {
-        _gameEffect = new GameEffect(_appStateServiceMock.Object);
+        _appStateEffect = new AppStateEffect(_appStateServiceMock.Object);
     }
 
     #region Constructor
@@ -29,7 +29,7 @@ public class GameEffectTests
     public void Constructor_NullAppStateService_ShouldThrow()
     {
         // Arrange
-        Action act = () => new GameEffect(null!);
+        Action act = () => new AppStateEffect(null!);
         
         // Act/Assert
         act.Should().Throw<ArgumentNullException>().WithParameterName("appStateService");
@@ -53,7 +53,7 @@ public class GameEffectTests
         _appStateServiceMock.Setup(x => x.LoadAsync(gameId)).ReturnsAsync(appState);
         
         // Act
-        await _gameEffect.LoadAppStateEffectAsync(loadAction, _dispatcherMock.Object);
+        await _appStateEffect.LoadAppStateEffectAsync(loadAction, _dispatcherMock.Object);
         
         // Assert
         _appStateServiceMock.Verify(x => x.LoadAsync(gameId), Times.Once);
@@ -70,7 +70,7 @@ public class GameEffectTests
         _appStateServiceMock.Setup(x => x.LoadAsync(gameId));
         
         // Act
-        Func<Task> act = async () => await _gameEffect.LoadAppStateEffectAsync(loadAction, _dispatcherMock.Object);
+        Func<Task> act = async () => await _appStateEffect.LoadAppStateEffectAsync(loadAction, _dispatcherMock.Object);
         
         // Assert
         await act.Should().ThrowAsync<NotImplementedException>();
@@ -80,7 +80,7 @@ public class GameEffectTests
     public async Task LoadGameEffectAsync_NullAction_ShouldThrow()
     {
         // Arrange
-        Func<Task> act = async () => await _gameEffect.LoadAppStateEffectAsync(null!, _dispatcherMock.Object);
+        Func<Task> act = async () => await _appStateEffect.LoadAppStateEffectAsync(null!, _dispatcherMock.Object);
         
         // Act/Assert
         await act.Should().ThrowAsync<ArgumentNullException>().WithParameterName("action");
@@ -91,7 +91,7 @@ public class GameEffectTests
     {
         // Arrange
         var action = new LoadGameAction(Guid.NewGuid());
-        Func<Task> act = async () => await _gameEffect.LoadAppStateEffectAsync(action, null!);
+        Func<Task> act = async () => await _appStateEffect.LoadAppStateEffectAsync(action, null!);
         
         // Act/Assert
         await act.Should().ThrowAsync<ArgumentNullException>().WithParameterName("dispatcher");
@@ -117,7 +117,7 @@ public class GameEffectTests
         _appStateServiceMock.Setup(x => x.SaveAsync(game, player)).ReturnsAsync(appState);
         
         // Act
-        await _gameEffect.SaveAppStateEffectAsync(saveAction, _dispatcherMock.Object);
+        await _appStateEffect.SaveAppStateEffectAsync(saveAction, _dispatcherMock.Object);
         
         // Assert
         _appStateServiceMock.Verify(x => x.SaveAsync(game, player), Times.Once);
@@ -128,7 +128,7 @@ public class GameEffectTests
     public async Task SaveGameEffectAsync_NullAction_ShouldThrow()
     {
         // Arrange
-        Func<Task> act = async () => await _gameEffect.SaveAppStateEffectAsync(null!, _dispatcherMock.Object);
+        Func<Task> act = async () => await _appStateEffect.SaveAppStateEffectAsync(null!, _dispatcherMock.Object);
         
         // Act/Assert
         await act.Should().ThrowAsync<ArgumentNullException>().WithParameterName("action");
@@ -139,7 +139,7 @@ public class GameEffectTests
     {
         // Arrange
         var action = new SaveGameAction(DomainFactory.CreateGame(), DomainFactory.CreatePlayer());
-        Func<Task> act = async () => await _gameEffect.SaveAppStateEffectAsync(action, null!);
+        Func<Task> act = async () => await _appStateEffect.SaveAppStateEffectAsync(action, null!);
         
         // Act/Assert
         await act.Should().ThrowAsync<ArgumentNullException>().WithParameterName("dispatcher");

@@ -21,10 +21,11 @@ public partial class GamePage
 
     [Inject] private IDispatcher Dispatcher { get; set; } = default!;
 
-    private bool MenuModalOpen { get; set; } = false;
-
+    private bool MenuIsOpen { get; set; }
+    
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         var idIsValid = Guid.TryParse(Id, out Guid gameId);
         var gameLoaded = GameState.Value.Loaded;
         var game = GameState.Value.Game;
@@ -41,15 +42,21 @@ public partial class GamePage
         }
     }
 
-    private void HandleWaitClick()
+    private void OpenMenu()
+    {
+        MenuIsOpen = true;
+    }
+    
+    private void Wait()
     {
         if (GameState.Value.Game is not null)
             Dispatcher.Dispatch(new IncrementDayAction(GameState.Value.Game.Day + 1));
     }
 
-    private void HandleMenuClick()
+    private void QuitGame()
     {
-        MenuModalOpen = true;
+        Dispatcher.Dispatch(new QuitGameAction());
+        NavManager.NavigateTo("/");
     }
 
     private void SaveGame()

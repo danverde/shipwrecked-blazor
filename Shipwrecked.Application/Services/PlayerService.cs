@@ -1,6 +1,6 @@
 using Ardalis.GuardClauses;
-using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
+using Shipwrecked.Domain.Constants;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
 
@@ -11,9 +11,6 @@ namespace Shipwrecked.Application.Services;
 /// </summary>
 public class PlayerService : IPlayerService
 {
-    private const string MaleUrl = "/img/sprites/man/man.gif";
-    private const string FemaleUrl = "/img/sprites/woman/woman.gif";
-    
     /// <inheritdoc />
     public Player CreatePlayer(string name, Gender gender, GameDifficulty difficulty)
     {
@@ -29,7 +26,8 @@ public class PlayerService : IPlayerService
             MaxStamina = 20,
             Health = 20,
             MaxHealth = 20,
-            ProfileImgUrl = gender == Gender.Female ? FemaleUrl : MaleUrl,
+            ProfileImg = gender == Gender.Female ? ImgConstants.WomanProfileImg : ImgConstants.ManProfileImg,
+            SpriteImg = gender == Gender.Female ? ImgConstants.WomanSprite : ImgConstants.ManSprite,
             Inventory = new Inventory(),
         };
 

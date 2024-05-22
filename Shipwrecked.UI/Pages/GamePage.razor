@@ -9,20 +9,22 @@
 
         <div class="bottom-wrapper">
             <div class="col">
-                <Button OnClickCallback="HandleWaitClick" Variant="ButtonType.Primary">Wait</Button>
-                <Button OnClickCallback="HandleMenuClick" Variant="ButtonType.Primary">Menu</Button>
+                <Button OnClickCallback="Wait" Variant="ButtonType.Primary">Wait</Button>
+                <Button OnClickCallback="OpenMenu" Variant="ButtonType.Primary">Menu</Button>
             </div>
         </div>
     </div>
     
-    <div class="right-col">
-        <button @onclick="HandleWaitClick">Increment Day</button>
-        <button @onclick="SaveGame">Save Game</button>
+    <div class="map-wrapper">
+        <p>The map will go here!</p>
     </div>
 
 </div>
 
-<Modal Title="Game Menu" IsOpen="@MenuModalOpen">
-    <p>This is a test</p>
-    <button>Do Nothing!</button>
+<Modal @bind-IsOpen="@MenuIsOpen">
+    <div class="menu-wrapper">
+        <h2>Menu</h2>
+        <Button OnClickCallback="@SaveGame">Save Game</Button>
+        <Button OnClickCallback="@QuitGame">Quit Game</Button>
+    </div>
 </Modal>

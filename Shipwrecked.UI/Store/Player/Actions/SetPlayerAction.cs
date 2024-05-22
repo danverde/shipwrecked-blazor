@@ -8,12 +8,7 @@ namespace Shipwrecked.UI.Store.Player.Actions;
 /// either while generating a new game, or when loading an existing game.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class SetPlayerAction
+public class SetPlayerAction(D.Player player)
 {
-    public D.Player? Player { get; set; }
-
-    public SetPlayerAction(D.Player player)
-    {
-        Player = player;
-    }
+    public D.Player? Player { get; set; } = player;
 }

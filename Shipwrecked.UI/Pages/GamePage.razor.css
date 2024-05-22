@@ -1,0 +1,23 @@
+.game-wrapper {
+    display: flex;
+    height: 100%;
+}
+
+.left-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.map-wrapper {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.menu-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.menu-wrapper h2 {
+    margin-bottom: 20px;
+}

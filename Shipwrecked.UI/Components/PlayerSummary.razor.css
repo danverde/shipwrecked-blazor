@@ -1,0 +1,33 @@
+.player-summary-wrapper {
+    width: 175px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    /* "Cormorant SC"; */
+    font-family: var(--primary-font);
+    font-weight: bold;
+    font-size: 12pt;
+    border-radius: 2px;
+}
+
+.player-summary-wrapper p {
+    margin: 0;
+}
+
+.profile-img {
+    display: block;
+    margin: auto;
+    outline: 2px solid gold;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+    width: 95px;
+    height: 80px;
+}
+
+.player-name {
+    font-size: var(--font-size-med);
+}
+
+.level {
+    margin-top: 5px;
+}
+

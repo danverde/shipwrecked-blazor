@@ -2,12 +2,10 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Shipwrecked.Application.Interfaces;
-using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.UI.Models;
 using Shipwrecked.UI.Store.Game;
 using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player.Actions;
-using Dispatcher = Fluxor.Dispatcher;
 
 namespace Shipwrecked.UI.Pages;
 

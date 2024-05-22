@@ -10,8 +10,16 @@ public partial class Modal
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public bool IsCloseable { get; set; } = true;
     
-    private void CloseModal()
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
+
+    async Task UpdateIsOpen()
+    {
+        await IsOpenChanged.InvokeAsync(IsOpen);
+    }
+    
+    private async Task CloseModal()
     {
         IsOpen = false;
+        await UpdateIsOpen();
     }
 }

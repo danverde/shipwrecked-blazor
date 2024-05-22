@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
-using Fluxor;
 using Moq;
 using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
