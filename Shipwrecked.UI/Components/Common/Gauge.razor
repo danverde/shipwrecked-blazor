@@ -1,5 +1,6 @@
-<h3>Gauge</h3>
-
-@code {
-    
-}
+<div class="gauge-wrapper">
+    <p>@Label: @Value / @Max</p>
+    <div class="progress-bar @(Type == GaugeType.Info ? "info" : "")">
+        <div class="progress @(GetProgressTypeString())" style="width: @_gaugePercentString"></div>
+    </div>
+</div>

@@ -7,9 +7,9 @@
 
         <p class="player-name">@PlayerState.Value.Player.Name</p>
         <p class="level">Level: @PlayerState.Value.Player.Level</p>
-        @* <app-gauge label="Health" [max]="player?.maxHealth ?? 0" [value]="player?.health?? 0"></app-gauge> *@
-        @* <app-gauge label="Stamina" [max]="player?.maxStamina ?? 0" [value]="player?.stamina ?? 0"></app-gauge> *@
-        @* <app-gauge label="Exp" [max]="100" [value]="player?.experience ?? 0" type="info"></app-gauge> *@
+        <Gauge Label="Health" Max="@PlayerState.Value.Player.MaxHealth" Value="PlayerState.Value.Player.Health"/>
+        <Gauge Label="Stamina" Max="@PlayerState.Value.Player.MaxStamina" Value="PlayerState.Value.Player.Stamina"/>
+        <Gauge Label="Exp" Max="100" Value="PlayerState.Value.Player.Experience" Type="GaugeType.Info"/>
 
         <!-- <button class="inventory-button">
         <img src="../../../assets/treasure-chest.svg" alt="inventory icon">

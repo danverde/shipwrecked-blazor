@@ -1,0 +1,34 @@
+.gauge-wrapper {
+    margin-top: 5px;
+}
+
+p {
+    margin: 0;
+}
+
+.progress-bar {
+    display: block;
+    width: 100%;
+    height: 5px;
+    border-radius: 3px;
+    background: gray;
+}
+
+.progress-bar.info .progress {
+    background: rgb(0, 162, 255);
+}
+
+.progress {
+    display: block;
+    height: 5px;
+    background: green;
+    border-radius: 3px;
+}
+
+.progress.warning {
+    background: gold;
+}
+
+.progress.critical {
+    background: red;
+}
