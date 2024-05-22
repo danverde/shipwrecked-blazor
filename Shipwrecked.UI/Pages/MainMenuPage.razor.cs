@@ -17,5 +17,5 @@ public partial class MainMenuPage
     /// <summary>
     /// Handles click events for the Help Menu button
     /// </summary>
-    private void HelpMenuClicked() => _DrawerService.OpenDrawer(DrawerId.HelpMenu);
+    private void HelpMenuClicked() => _DrawerService.OpenDrawer(DrawerId.AboutDrawer);
 }

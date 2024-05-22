@@ -21,7 +21,7 @@ public partial class LoadGamePage
     
     protected override async Task OnInitializedAsync()
     {
-        States = await AppStateService.ListAsync();
+        States  = await AppStateService.ListAsync();
         await base.OnInitializedAsync();
     }
 
@@ -29,5 +29,11 @@ public partial class LoadGamePage
     {
         Dispatcher.Dispatch(new LoadGameAction(id));
         NavManager.NavigateTo($"/game/{id}");
+    }
+
+    private async Task DeleteSaveGameAsync(Guid gameId)
+    {
+        await AppStateService.DeleteAsync(gameId);
+        States = await AppStateService.ListAsync();
     }
 }

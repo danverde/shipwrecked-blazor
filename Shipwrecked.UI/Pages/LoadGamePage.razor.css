@@ -11,11 +11,16 @@
     flex-direction: column;
     flex-grow: 1;
     margin-top: 30px;
+    margin-bottom: 15px;
+    padding-right: 15px;
     overflow: scroll;
 }
 
-.button-wrapper {
+.item-wrapper {
     margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .no-games {
@@ -36,6 +41,14 @@ button {
     padding: 7px;
 }
 
+.button-content-wrapper div:first-child {
+    width: 20%;
+}
+
+.button-content-wrapper div:nth-child(2) {
+    width: 30%;
+}
+
 .button-column {
     display: flex;
     flex-direction: column;
@@ -44,12 +57,12 @@ button {
 
 .left-col {
     align-self: center;
-    margin-right: 7px;
 }
 
 .right-col {
     border-left: 1px solid black;
     padding-left: 7px;
+    margin-left: 10px;
 }
 
 span:first-child {
@@ -57,12 +70,16 @@ span:first-child {
     align-items: center;
 }
 
-img {
+.player-sprite {
     margin-left: 10px;
 }
 
 .small {
     font-size: var(--font-size-xs-small);
+}
+
+.delete-button:hover {
+    fill: red;
 }
 
         

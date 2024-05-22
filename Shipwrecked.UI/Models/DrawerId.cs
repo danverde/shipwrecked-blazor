@@ -5,5 +5,5 @@ namespace Shipwrecked.UI.Models;
 /// </summary>
 public enum DrawerId
 {
-    HelpMenu
+    AboutDrawer
 }

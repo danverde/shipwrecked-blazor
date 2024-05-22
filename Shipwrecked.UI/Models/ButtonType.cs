@@ -6,5 +6,6 @@ namespace Shipwrecked.UI.Models;
 public enum ButtonType
 {
     Primary,
-    Banner
+    Banner,
+    Secondary
 }

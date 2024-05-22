@@ -16,25 +16,35 @@
         
         @foreach (var (state, index) in @States.Select((s, i) => (s, i)))
         {
-            <div class="button-wrapper">   
-                <Button Variant="@ButtonType.Banner" OnClickCallback="() => HandleLoadGameClick(state.Game.Id)">
+            <div class="item-wrapper">
+                <Button Styles="width: calc(100% - 30px - 15px)" Variant="@ButtonType.Banner" OnClickCallback="() => HandleLoadGameClick(state.Game.Id)">
                     <div class="button-content-wrapper">
-                        <div class="left-col">
+                        <div class=" left-col">
                             Game @(index + 1)
                         </div>
                         <div class="button-column right-col">
-                            <span>@state.Player.Name <img alt="Player Sprite" src="@state.Player.ProfileImg"></span>
+                            <span>@state.Player.Name <img class="player-sprite" alt="Player Sprite" src="@state.Player.SpriteImg"></span>
                             <span class="small">Lv. @state.Player.Level | Day @state.Game.Day</span>
                         </div>
+                        @* <div class=" right-col"> *@
+                        @*     <img @onclick="() => DeleteSaveGameAsync(state.Game.Id)" src="img/icons/bomb.svg" alt="delete button"/> *@
+                        @* </div> *@
                     </div>
                 </Button>
+                <div>
+                    <Button Variant=@ButtonType.Secondary OnClickCallback="() => DeleteSaveGameAsync(state.Game.Id)">
+                        <img src="img/icons/bomb.svg" alt="The delete button"/>
+                    </Button>
+                </div>
+                @* <div style="width: 40px"> *@
+                @* </div> *@
             </div>
         }
 
     </div>
     
     <div>
-        <Button Route="/" Variant="ButtonType.Banner">Back</Button>
+        <Button Styles="margin-bottom: 0" Route="/" Variant="ButtonType.Primary">Back</Button>
     </div>
     
 </div>
