@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Shipwrecked.UI.Store.Player;

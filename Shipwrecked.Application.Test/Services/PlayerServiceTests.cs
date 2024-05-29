@@ -12,7 +12,7 @@ public class PlayerServiceTests
 
     public PlayerServiceTests()
     {
-        _service = new PlayerService();
+        // _service = new PlayerService();
     }
     
     #region CreatePlayer

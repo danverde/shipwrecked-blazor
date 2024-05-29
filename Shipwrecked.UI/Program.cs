@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
+using Shipwrecked.Domain.Interfaces;
+using Shipwrecked.Domain.Managers;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.Infrastructure.Services;
 using Shipwrecked.UI;
@@ -36,6 +38,8 @@ builder.Services.AddSingleton<IGameSettingsFactory, GameSettingsFactory>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 
+// Domain Services
+builder.Services.AddScoped<IPlayerManager, PlayerManager>();
 
 await builder.Build().RunAsync();
 
