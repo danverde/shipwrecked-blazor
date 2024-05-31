@@ -1,6 +1,6 @@
 .drawer {
     --drawer-width: 500px;
-    --transition-time: 0.3s; /* TODO not sure if this var will work here! */
+    --transition-time: 0.3s;
     
     position: absolute;
     top: 0;

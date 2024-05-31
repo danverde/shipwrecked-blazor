@@ -2,8 +2,11 @@ namespace Shipwrecked.Domain.Constants;
 
 /// <summary>
 /// Constants that point to the location of the sprite URL's.
-/// TODO Doesn't belong in the domain layer. At all.
 /// </summary>
+/// <remarks>
+/// TODO Doesn't belong in the domain layer. At all.
+/// UI Should use gender & type properties on the domain obj to determine the img 
+/// </remarks>
 public static class ImgConstants
 {
     // Profile Images
