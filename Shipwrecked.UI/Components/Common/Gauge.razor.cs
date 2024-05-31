@@ -29,12 +29,9 @@ public partial class Gauge : ComponentBase
     }
 
     private void SetWidth() {
-        Console.WriteLine("Set Width Called");
-        
         float gaugePercent = (float)Value / Max * 100;
         _gaugePercentString = $"{gaugePercent}%";
 
-        Console.WriteLine(_gaugePercentString);
         if (Type == GaugeType.Default) {
             SetProgressType(gaugePercent);
         }

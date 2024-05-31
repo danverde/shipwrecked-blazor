@@ -1,4 +1,5 @@
 using Fluxor;
+using Shipwrecked.Domain;
 using Shipwrecked.UI.Store.Game.Actions;
 
 namespace Shipwrecked.UI.Store.Game;
@@ -34,15 +35,13 @@ public static class GameReducer
     /// </summary>
     [ReducerMethod]
     public static GameState QuitGameReducer(GameState state, QuitGameAction action) =>
-        new GameState(false, false, null);
+        new GameState(false, false, new Domain.Models.Game());
     
     [ReducerMethod]
     public static GameState IncrementDayReducer(GameState state, IncrementDayAction action)
     {
-        // TODO come up with a deep clone method for the game?
-        var newState = new GameState(state.Loading, state.Loaded, state.Game);
-        if (newState.Game is not null)
-            newState.Game!.Day = action.Day;
+        var newState = Util.Clone(state);
+        newState.Game.Day = action.Day;
         return newState;
     }
 }

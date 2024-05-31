@@ -67,9 +67,12 @@ public class PlayerServiceTests
 
         var expectedActions = new List<object>
         {
-            new SetStaminaAction(player.Stamina),
+            new SetStaminaAction(player.Stamina - 5),
             new SetExpAction(player.Experience)
         };
+        
+        _playerManagerMock.Setup(x => x.DecreaseStamina(It.IsAny<Player>())).Returns(new Player {Stamina = player.Stamina - 5});
+        _playerManagerMock.Setup(x => x.IncreaseExp(It.IsAny<Player>())).Returns(new Player {Level = player.Level + 1});
         
         // Act
         var result = _service.IncrementDay(player);
@@ -77,8 +80,8 @@ public class PlayerServiceTests
         // Arrange
         result.Should().BeEquivalentTo(expectedActions);
         
-        _playerManagerMock.Verify(x => x.DecreaseStamina(player), Times.Once);
-        _playerManagerMock.Verify(x => x.IncreaseExp(player), Times.Once);
+        _playerManagerMock.Verify(x => x.DecreaseStamina(It.IsAny<Player>()), Times.Once);
+        _playerManagerMock.Verify(x => x.IncreaseExp(It.IsAny<Player>()), Times.Once);
     }
     
     [Fact]
@@ -94,8 +97,11 @@ public class PlayerServiceTests
             new GameOverAction()
         };
         
+        _playerManagerMock.Setup(x => x.DecreaseStamina(It.IsAny<Player>())).Returns(player);
+        _playerManagerMock.Setup(x => x.IncreaseExp(It.IsAny<Player>())).Returns(new Player {Level = player.Level + 1});
+        
         // Act
-        var result = _service.IncrementDay(player);
+        List<object> result = _service.IncrementDay(player);
         
         // Arrange
         result.First().Should().BeEquivalentTo(expectedActions.First());

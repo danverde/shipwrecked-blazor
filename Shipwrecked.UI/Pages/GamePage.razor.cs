@@ -36,9 +36,9 @@ public partial class GamePage
         } else if (idIsValid && !gameLoaded)
         {
             Dispatcher.Dispatch(new LoadGameAction(gameId));
-        } else if (gameLoaded && (!idIsValid || game!.Id != gameId))
+        } else if (gameLoaded && (!idIsValid || game.Id != gameId))
         {
-            NavManager.NavigateTo($"/game/{game!.Id}");
+            NavManager.NavigateTo($"/game/{game.Id}");
         }
     }
 
@@ -49,8 +49,7 @@ public partial class GamePage
     
     private void Wait()
     {
-        if (GameState.Value.Game is not null)
-            Dispatcher.Dispatch(new IncrementDayAction(GameState.Value.Game.Day + 1));
+        Dispatcher.Dispatch(new IncrementDayAction(GameState.Value.Game.Day + 1));
     }
 
     private void QuitGame()
@@ -61,8 +60,6 @@ public partial class GamePage
 
     private void SaveGame()
     {
-        // TODO figure out null handling, cuz this is gonna get out of hand quickly...
-        if (GameState.Value.Game is not null && PlayerState.Value.Player is not null)
-            Dispatcher.Dispatch(new SaveGameAction(GameState.Value.Game, PlayerState.Value.Player));
+        Dispatcher.Dispatch(new SaveGameAction(GameState.Value.Game, PlayerState.Value.Player));
     }
 }

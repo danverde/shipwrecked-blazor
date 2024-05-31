@@ -79,7 +79,7 @@ public class GameReducerTests
         var state = new GameState(false, true, game);
         var action = new QuitGameAction();
 
-        var expected = new GameState(false, false, null);
+        var expected = new GameState(false, false, new Game());
         
         // Act
         GameState result = GameReducer.QuitGameReducer(state, action);

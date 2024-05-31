@@ -11,7 +11,7 @@ namespace Shipwrecked.UI.Store.Game;
 [ExcludeFromCodeCoverage]
 public class GameState : BaseState
 {
-    public D.Game? Game { get; set; }
+    public D.Game Game { get; set; } = new();
     
     /// <summary>
     /// Constructor used for state initialization.
@@ -21,7 +21,7 @@ public class GameState : BaseState
     /// <summary>
     /// Public constructor specifying all properties
     /// </summary>
-    public GameState(bool loading, bool loaded, D.Game? game)
+    public GameState(bool loading, bool loaded, D.Game game)
     {
         Loading = loading;
         Loaded = loaded;

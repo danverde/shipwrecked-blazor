@@ -10,8 +10,6 @@ using Shipwrecked.Domain.Managers;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.Infrastructure.Services;
 using Shipwrecked.UI;
-using Shipwrecked.UI.Interfaces;
-using Shipwrecked.UI.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -25,9 +23,6 @@ builder.Services.AddFluxor(options =>
     options.ScanAssemblies(typeof(Program).Assembly);
     options.UseReduxDevTools(); // Don't want to run this on the release version
 }); 
-
-// UI services
-builder.Services.AddSingleton<IDrawerService, DrawerService>();
 
 // Infrastructure Services
 builder.Services.AddScoped<IAppStateStore, AppStateStore>();

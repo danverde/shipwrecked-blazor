@@ -1,75 +1,26 @@
 using Microsoft.AspNetCore.Components;
-using Shipwrecked.UI.Interfaces;
-using Shipwrecked.UI.Models;
 
 namespace Shipwrecked.UI.Components.Common;
 
 /// <summary>
 /// Code behind for the Drawer Component
 /// </summary>
-public partial class Drawer : IDisposable
+public partial class Drawer
 {
-    /// <summary>
-    /// Drawer Service used to consume & dispatch drawer events
-    /// </summary>
-    [Inject]
-    private IDrawerService DrawerService { get; set; } = default!;
-
-    #region Input Parameters
-
-    /// <summary>
-    /// The Id of the drawer.
-    /// </summary>
-    [Parameter] public DrawerId Id { get; set; }
-    
-    /// <summary>
-    /// Optional Title of the drawer
-    /// </summary>
     [Parameter] public string? Title { get; set; }
-    
-    /// <summary>
-    /// Optional content of the drawer
-    /// </summary>
+    [Parameter] public bool IsOpen { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
     
-    #endregion
+    async Task UpdateIsOpen()
+    {
+        await IsOpenChanged.InvokeAsync(IsOpen);
+    }
 
-    /// <summary>
-    /// Determines if the drawer is open or closed
-    /// </summary>
-    private bool IsOpen { get; set; }
-
-    /// <summary>
-    /// Initialize Drawer component
-    /// Subscribes to drawer events
-    /// </summary>
-    protected override void OnInitialized()
+    private async Task CloseDrawer()
     {
-        DrawerService.DrawerToggled += HandleDrawerToggled;
+        IsOpen = false;
+        await UpdateIsOpen();
     }
     
-    /// <summary>
-    /// Dispose of Drawer component.
-    /// Unsubscribes from drawer service.
-    /// </summary>
-    public void Dispose()
-    {
-        DrawerService.DrawerToggled -= HandleDrawerToggled;
-    }
-    
-    /// <summary>
-    /// Handles DrawerToggled events from the <see cref="IDrawerService"/>
-    /// </summary>
-    private void HandleDrawerToggled(object? sender, DrawerArgs e)
-    {
-        if (!e.Id.Equals(Id)) return;
-        
-        IsOpen = e.IsOpen;
-        StateHasChanged(); // TODO seems sketchy!
-    }
-    
-    /// <summary>
-    /// Handle Close Drawer Clicks
-    /// </summary>
-    private void CloseDrawer() => DrawerService.CloseDrawer(Id);
 }
