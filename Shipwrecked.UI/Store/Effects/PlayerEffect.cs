@@ -18,12 +18,12 @@ public class PlayerEffect (IPlayerService playerService, IDispatcher dispatcher,
     [EffectMethod]
     public Task IncrementDayEffectAsync(IncrementDayAction action, IDispatcher dispatcher)
     {
-        var actions = playerService.IncrementDay(_playerState.Value.Player!);
+        var actions = _playerService.IncrementDay(_playerState.Value.Player);
         foreach (var a in actions)
         {
             _dispatcher.Dispatch(a);
         }
-
+        
         return Task.CompletedTask;
     }
 }

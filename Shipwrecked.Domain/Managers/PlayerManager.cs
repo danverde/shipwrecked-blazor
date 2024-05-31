@@ -1,6 +1,4 @@
 using Ardalis.GuardClauses;
-using Shipwrecked.Domain.Constants;
-using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Interfaces;
 using Shipwrecked.Domain.Models;
 
@@ -9,35 +7,33 @@ namespace Shipwrecked.Domain.Managers;
 /// <summary>
 /// Implementation of the <see cref="IPlayerManager"/> interface
 /// </summary>
+/// TODO changes SHOULD be based off difficulty setting!
 public class PlayerManager : IPlayerManager
 {
     /// <inheritdoc />
-    public Player CreatePlayer(string name, Gender gender, GameDifficulty difficulty)
+    public Player DecreaseStamina(Player player)
     {
-        Guard.Against.NullOrWhiteSpace(name);
+        Guard.Against.Null(player);
         
-        var player = new Player
-        {
-            Id = Guid.NewGuid(),
-            Name = name,
-            Level = 1,
-            Experience = 0,
-            Stamina = 15,
-            MaxStamina = 20,
-            Health = 20,
-            MaxHealth = 20,
-            ProfileImg = gender == Gender.Female ? ImgConstants.WomanProfileImg : ImgConstants.ManProfileImg,
-            SpriteImg = gender == Gender.Female ? ImgConstants.WomanSprite : ImgConstants.ManSprite,
-            Inventory = new Inventory(),
-        };
+        player.Stamina -= 3;
+        if (player.Stamina < 0)
+            player.Stamina = 0;
 
-        if (difficulty == GameDifficulty.Easy)
-        {
-            player.Stamina += 5;
-        } else if (difficulty == GameDifficulty.Difficult)
-        {
-            player.Health -= 5;
-        }
+        return player;
+    }
+
+    /// <inheritdoc />
+    public Player IncreaseExp(Player player)
+    {
+        Guard.Against.Null(player);
+
+        player.Experience += 25;
+        if (player.Experience < 100) return player;
+        
+        player.Experience -= 100;
+        player.Level++;
+        player.MaxHealth += 3;
+        player.Health += 3;
 
         return player;
     }

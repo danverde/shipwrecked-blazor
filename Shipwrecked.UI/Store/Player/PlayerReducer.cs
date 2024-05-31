@@ -1,6 +1,6 @@
 using Fluxor;
-using Newtonsoft.Json;
 using Shipwrecked.Application.Actions;
+using Shipwrecked.Domain;
 using Shipwrecked.UI.Store.Player.Actions;
 
 namespace Shipwrecked.UI.Store.Player;
@@ -17,36 +17,35 @@ public static class PlayerReducer
     [ReducerMethod]
     public static PlayerState SetPlayerReducer(PlayerState state, SetPlayerAction action) =>
         new PlayerState(action.Player);
-    
+
     /// <summary>
     /// Reducer used to level up a user 
     /// </summary>
-    /// TODO fix this so it's not a copy of the set player reducer...
     [ReducerMethod]
-    public static PlayerState LevelUpReducer(PlayerState state, LevelUpAction action) =>
-        new PlayerState(action.Player);
-
-    /// <summary>
-    /// Reducer used to update a players stamina 
-    /// </summary>
-    [ReducerMethod]
-    public static PlayerState SetStaminaReducer(PlayerState state, SetStaminaAction action) =>
-         new PlayerState(ClonePlayer(state.Player!));
+    public static PlayerState LevelUpReducer(PlayerState state, LevelUpAction action)
+    {
+        var player = Util.Clone(state.Player);
+        player.Level = action.Level;
+        player.Experience = action.Experience;
+        player.Stamina = action.Stamina;
+        player.MaxStamina = action.MaxStamina;
+        player.Health = action.Health;
+        player.MaxHealth = action.MaxHealth;
+        
+        return new PlayerState(player);
+    }
     
     /// <summary>
     /// Reducer used to update a players experience 
     /// </summary>
     [ReducerMethod]
     public static PlayerState SetExpReducer(PlayerState state, SetExpAction action) =>
-        new PlayerState(ClonePlayer(state.Player!));
+        new PlayerState(Util.Clone(state.Player));
 
-    
-    
     /// <summary>
-    /// Helper method used to create a deep clone of a player object
+    /// Reducer used to update a players stamina 
     /// </summary>
-    private static Domain.Models.Player ClonePlayer(Domain.Models.Player player)
-    {
-        return JsonConvert.DeserializeObject<Domain.Models.Player>(JsonConvert.SerializeObject(player)) ?? new Domain.Models.Player();
-    }
+    [ReducerMethod]
+    public static PlayerState SetStaminaReducer(PlayerState state, SetStaminaAction action) =>
+         new PlayerState(Util.Clone(state.Player));
 }

@@ -6,13 +6,6 @@
 
 @code {
 
-    [Inject]
-    private IState<GameState> GameState { get; set; }
-
-    // protected override void OnInitialized()
-    // {
-    //     Console.WriteLine("game summary init called");
-    //     base.OnInitialized();
-    // }
+    [Inject] private IState<GameState> GameState { get; set; } = default!;
 
 }

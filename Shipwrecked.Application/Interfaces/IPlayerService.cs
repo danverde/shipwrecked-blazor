@@ -18,5 +18,6 @@ public interface IPlayerService
     /// Handles Changes to the player made when the day is incremented.
     /// Returns a list of actions as actions.
     /// </summary>
+    /// <returns>A list of actions that need to be dispatched as a result of this method</returns>
     public List<object> IncrementDay(Player player);
 }

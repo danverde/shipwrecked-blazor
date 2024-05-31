@@ -60,6 +60,9 @@ public class AppStateEffectTests
         _dispatcherMock.Verify(x => x.Dispatch(It.Is<GameLoadedAction>(action => action.Game.Id == gameId)), Times.Once);
     }
     
+    /// <summary>
+    /// TODO implement real failure steps!
+    /// </summary>
     [Fact]
     public async Task LoadGameEffectAsync_ValidInput_MissingGame_ShouldThrow()
     {

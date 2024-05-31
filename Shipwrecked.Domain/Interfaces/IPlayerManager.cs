@@ -1,15 +1,21 @@
-using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Domain.Interfaces;
 
 /// <summary>
-/// Interface for the service that interacts with Player objects
+/// Interface for altering player objects
 /// </summary>
 public interface IPlayerManager
 {
     /// <summary>
-    /// Create a new Player
+    /// Decrease a players stamina.
     /// </summary>
-    Player CreatePlayer(string name, Gender gender, GameDifficulty difficulty);
+    /// <remarks>Amount is based off difficulty settings</remarks>
+    public Player DecreaseStamina(Player player);
+    
+    /// <summary>
+    /// Increase a players exp. Amount is based off
+    /// </summary>
+    /// <remarks>Amount is based off difficulty settings</remarks>
+    public Player IncreaseExp(Player player);
 }

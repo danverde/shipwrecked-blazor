@@ -11,14 +11,14 @@ namespace Shipwrecked.UI.Store.Player;
 [ExcludeFromCodeCoverage]
 public class PlayerState
 {
-    public D.Player? Player { get; set; }
+    public D.Player Player { get; set; } = new();
 
     /// <summary>
     /// Constructor used for state initialization.
     /// </summary>
     private PlayerState() {}
 
-    public PlayerState(D.Player? player)
+    public PlayerState(D.Player player)
     {
         Player = player;
     }
