@@ -1,30 +1,25 @@
 using FluentAssertions;
-using Moq;
 using Shared;
 using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
-using Shipwrecked.Domain.Interfaces;
-using Shipwrecked.Domain.Models;
+using Shipwrecked.Domain.Managers;
 
 namespace Shipwrecked.Application.Test.Services;
 
 /// <summary>
 /// Unit tests for the <see cref="PlayerService"/> object
 /// </summary>
-/// <remarks>
-/// TODO THESE UNIT TESTS ARE WORTHLESS! really. Please fix them so they actually compare the player objs!
-/// </remarks>
 public class PlayerServiceTests
 {
-    private readonly Mock<IPlayerManager> _playerManagerMock = new();
-    
     private readonly IPlayerService _service;
 
     public PlayerServiceTests()
     {
-        _service = new PlayerService(_playerManagerMock.Object);
+        var playerManager = new PlayerManager();
+        
+        _service = new PlayerService(playerManager);
     }
     
     #region CreatePlayer
@@ -70,21 +65,15 @@ public class PlayerServiceTests
 
         var expectedActions = new List<object>
         {
-            new SetStaminaAction(player.Stamina - 5),
-            new SetExpAction(player.Experience)
+            new SetStaminaAction(7),
+            new SetExpAction(25)
         };
-        
-        _playerManagerMock.Setup(x => x.DecreaseStamina(It.IsAny<Player>())).Returns(new Player {Stamina = player.Stamina - 5});
-        _playerManagerMock.Setup(x => x.IncreaseExp(It.IsAny<Player>())).Returns(new Player {Level = player.Level + 1});
         
         // Act
         var result = _service.IncrementDay(player);
         
         // Arrange
         result.Should().BeEquivalentTo(expectedActions);
-        
-        _playerManagerMock.Verify(x => x.DecreaseStamina(It.IsAny<Player>()), Times.Once);
-        _playerManagerMock.Verify(x => x.IncreaseExp(It.IsAny<Player>()), Times.Once);
     }
     
     [Fact]
@@ -100,18 +89,12 @@ public class PlayerServiceTests
             new GameOverAction()
         };
         
-        _playerManagerMock.Setup(x => x.DecreaseStamina(It.IsAny<Player>())).Returns(player);
-        _playerManagerMock.Setup(x => x.IncreaseExp(It.IsAny<Player>())).Returns(new Player {Level = player.Level + 1});
-        
         // Act
         List<object> result = _service.IncrementDay(player);
         
         // Arrange
         result.First().Should().BeEquivalentTo(expectedActions.First());
         result.Last().Should().BeOfType<GameOverAction>();
-        
-        _playerManagerMock.Verify(x => x.DecreaseStamina(player), Times.Once);
-        _playerManagerMock.Verify(x => x.IncreaseExp(player), Times.Never);
     }
     
     [Fact]
@@ -121,18 +104,12 @@ public class PlayerServiceTests
         var player = DomainFactory.CreatePlayer();
         player.Experience = 90;
         
-        _playerManagerMock.Setup(x => x.DecreaseStamina(It.IsAny<Player>())).Returns(new Player {Stamina = player.Stamina - 5});
-        _playerManagerMock.Setup(x => x.IncreaseExp(It.IsAny<Player>())).Returns(new Player {Level = player.Level + 1});
-        
         // Act
         List<object> result = _service.IncrementDay(player);
         
         // Assert
         result.First().Should().BeOfType<SetStaminaAction>();
         result.Last().Should().BeOfType<LevelUpAction>();
-        
-        _playerManagerMock.Verify(x => x.DecreaseStamina(It.IsAny<Player>()), Times.Once);
-        _playerManagerMock.Verify(x => x.IncreaseExp(It.IsAny<Player>()), Times.Once);
     }
     
     [Fact]

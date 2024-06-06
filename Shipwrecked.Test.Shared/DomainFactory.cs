@@ -33,7 +33,9 @@ public class DomainFactory
         {
             Id = Guid.NewGuid(),
             Stamina = 10,
-            MaxHealth = 10,
+            MaxStamina = 20,
+            Health = 10,
+            MaxHealth = 20,
             Level = 1,
             Experience = 0,
             Name = "generic player",

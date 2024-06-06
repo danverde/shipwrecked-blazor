@@ -3,6 +3,7 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Moq;
 using Shared;
+using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
 using Shipwrecked.UI.Services;
@@ -158,6 +159,40 @@ public class AppStateEffectTests
         // Act/Assert
         await act.Should().ThrowAsync<ArgumentNullException>().WithParameterName("dispatcher");
     }  
+
+    #endregion
+
+    #region GameOverEffectAsync
+
+    [Fact (Skip = "needs to be converted to bUnit to mock nav manager")]
+    public async Task GameOverAction_ShouldCreateAlert()
+    {
+        // Arrange
+        // _navigationManagerMock.Setup(x => x.NavigateTo(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()));
+
+        // Act
+        await _appStateEffect.GameOverEffectAsync(new GameOverAction(), _dispatcherMock.Object);
+        
+        // Assert
+        // _alertServiceMock.Verify(x => x.Error("The game ended. You died"), Times.Once);
+        _navigationManagerMock.Verify(x => x.NavigateTo("/", It.IsAny<bool>(), It.IsAny<bool>()), Times.Once);
+    }
+    
+    [Theory]
+    [InlineData("action")]
+    [InlineData("dispatcher")]
+    public async Task GameOverAction_NullParams_ShouldThrow(string param)
+    {
+        // Arrange
+        var action = param == "action" ? null! : new GameOverAction();
+        var dispatcher = param == "dispatcher" ? null! : _dispatcherMock.Object;
+
+        // Act
+        Func<Task> act = async () => await _appStateEffect.GameOverEffectAsync(action, dispatcher);
+        
+        // Assert
+        await act.Should().ThrowAsync<ArgumentNullException>().WithParameterName(param);
+    }
 
     #endregion
 }

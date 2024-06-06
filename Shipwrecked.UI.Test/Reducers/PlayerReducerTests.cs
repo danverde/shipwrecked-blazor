@@ -1,6 +1,8 @@
 using FluentAssertions;
 using Shared;
 using Shipwrecked.Application.Actions;
+using Shipwrecked.Domain.Models;
+using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player;
 using Shipwrecked.UI.Store.Player.Actions;
 
@@ -93,5 +95,39 @@ public class PlayerReducerTests
         
         // Assert
         result.Should().BeEquivalentTo(expected);
+    }
+
+    [Fact]
+    public void QuitGameReducer_ShouldResetPlayer()
+    {
+        // Arrange
+        var player = DomainFactory.CreatePlayer();
+        var state = new PlayerState(player);
+        var action = new QuitGameAction();
+
+        var expectedState = new PlayerState(new Player());
+        
+        // Act
+        var result = PlayerReducer.QuitGameReducer(state, action);
+        
+        // Assert
+        result.Should().BeEquivalentTo(expectedState);
+    }
+    
+    [Fact]
+    public void GameOverReducer_ShouldResetPlayer()
+    {
+        // Arrange
+        var player = DomainFactory.CreatePlayer();
+        var state = new PlayerState(player);
+        var action = new GameOverAction();
+
+        var expectedState = new PlayerState(new Player());
+        
+        // Act
+        var result = PlayerReducer.GameOverReducer(state, action);
+        
+        // Assert
+        result.Should().BeEquivalentTo(expectedState);
     }
 }

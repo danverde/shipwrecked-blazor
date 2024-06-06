@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Shared;
+using Shipwrecked.Application.Actions;
 using Shipwrecked.Domain.Models;
 using Shipwrecked.UI.Store.Game;
 using Shipwrecked.UI.Store.Game.Actions;
@@ -90,6 +91,27 @@ public class GameReducerTests
 
     #endregion
 
+    #region GameOverReducer
+
+    [Fact]
+    public void GameOverReducer_ShouldResetState()
+    {
+        // Arrange
+        var game = DomainFactory.CreateGame();
+        var state = new GameState(false, true, game);
+        var action = new GameOverAction();
+        
+        var expectedState = new GameState(false, false, new Game());
+        
+        // Act
+        var result = GameReducer.GameOverReducer(state, action);
+        
+        // Arrange
+        result.Should().BeEquivalentTo(expectedState);
+    }
+
+    #endregion
+
     #region IncrementDayReducer
 
     [Fact]
@@ -113,4 +135,6 @@ public class GameReducerTests
     }
 
     #endregion
+    
+    
 }

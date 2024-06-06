@@ -14,6 +14,8 @@ public class PlayerManager : IPlayerManager
     public Player DecreaseStamina(Player player)
     {
         Guard.Against.Null(player);
+
+        player = Util.Clone(player);
         
         player.Stamina -= 3;
         if (player.Stamina < 0)
@@ -27,6 +29,8 @@ public class PlayerManager : IPlayerManager
     {
         Guard.Against.Null(player);
 
+        player = Util.Clone(player);
+        
         player.Experience += 25;
         if (player.Experience < 100) return player;
         
