@@ -1,4 +1,5 @@
 using Fluxor;
+using Shipwrecked.Application.Actions;
 using Shipwrecked.Domain;
 using Shipwrecked.UI.Store.Game.Actions;
 
@@ -37,6 +38,16 @@ public static class GameReducer
     public static GameState QuitGameReducer(GameState state, QuitGameAction action) =>
         new GameState(false, false, new Domain.Models.Game());
     
+    /// <summary>
+    /// Reducer for the <see cref="GameOverAction"/> action.
+    /// </summary>
+    [ReducerMethod]
+    public static GameState GameOverReducer(GameState state, GameOverAction action) =>
+        new GameState(false, false, new Domain.Models.Game());
+    
+    /// <summary>
+    /// Reducer for the <see cref="IncrementDayAction"/> action.
+    /// </summary>
     [ReducerMethod]
     public static GameState IncrementDayReducer(GameState state, IncrementDayAction action)
     {

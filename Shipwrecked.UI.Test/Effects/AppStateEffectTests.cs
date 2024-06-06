@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Fluxor;
+using Microsoft.AspNetCore.Components;
 using Moq;
 using Shared;
 using Shipwrecked.Application.Interfaces;
@@ -16,13 +17,15 @@ namespace Shipwrecked.UI.Test.Effects;
 public class AppStateEffectTests
 {
     private readonly Mock<IAppStateService> _appStateServiceMock = new();
-    private readonly Mock<IDispatcher> _dispatcherMock = new();
     private readonly AlertService _alertService = new();
+    private readonly Mock<NavigationManager> _navigationManagerMock = new();
+    
+    private readonly Mock<IDispatcher> _dispatcherMock = new();
     private readonly AppStateEffect _appStateEffect;
 
     public AppStateEffectTests()
     {
-        _appStateEffect = new AppStateEffect(_appStateServiceMock.Object, _alertService);
+        _appStateEffect = new AppStateEffect(_appStateServiceMock.Object, _alertService, _navigationManagerMock.Object);
     }
 
     #region Constructor
@@ -30,13 +33,15 @@ public class AppStateEffectTests
     [Theory]
     [InlineData("appStateService")]
     [InlineData("alertService")]
+    [InlineData("navManager")]
     public void Constructor_NullAppStateService_ShouldThrow(string param)
     {
         // Arrange
         var appStateService = param == "appStateService" ? null! : _appStateServiceMock.Object;
         var alertService = param == "alertService" ? null! : _alertService;
+        var navManager = param == "navManager" ? null! : _navigationManagerMock.Object;
         
-        Action act = () => new AppStateEffect(appStateService, alertService);
+        Action act = () => new AppStateEffect(appStateService, alertService, navManager);
         
         // Act/Assert
         act.Should().Throw<ArgumentNullException>().WithParameterName(param);

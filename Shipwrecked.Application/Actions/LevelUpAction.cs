@@ -22,7 +22,7 @@ public class LevelUpAction
         Experience = player.Experience;
         Health = player.Health;
         MaxHealth = player.MaxHealth;
-        Stamina = player.MaxStamina;
+        Stamina = player.Stamina;
         MaxStamina = player.MaxStamina;
     }
     

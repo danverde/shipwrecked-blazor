@@ -1,6 +1,7 @@
 using Ardalis.GuardClauses;
 using Fluxor;
 using Shipwrecked.Application.Interfaces;
+using Shipwrecked.Domain;
 using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player;
 
@@ -18,7 +19,8 @@ public class PlayerEffect (IPlayerService playerService, IDispatcher dispatcher,
     [EffectMethod]
     public Task IncrementDayEffectAsync(IncrementDayAction action, IDispatcher dispatcher)
     {
-        var actions = _playerService.IncrementDay(_playerState.Value.Player);
+        var player = Util.Clone(_playerState.Value.Player); // must clone state before altering it to keep state pure
+        List<object> actions = _playerService.IncrementDay(player);
         foreach (var a in actions)
         {
             _dispatcher.Dispatch(a);

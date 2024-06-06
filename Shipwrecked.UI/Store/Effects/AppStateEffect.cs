@@ -1,5 +1,7 @@
 using Ardalis.GuardClauses;
 using Fluxor;
+using Microsoft.AspNetCore.Components;
+using Shipwrecked.Application.Actions;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
 using Shipwrecked.UI.Services;
@@ -11,11 +13,25 @@ namespace Shipwrecked.UI.Store.Effects;
 /// <summary>
 /// AppState action side effects
 /// </summary>
-public class AppStateEffect(IAppStateService appStateService, AlertService alertService)
+public class AppStateEffect(IAppStateService appStateService, AlertService alertService, NavigationManager navManager)
 {
     private readonly IAppStateService _appStateService = Guard.Against.Null(appStateService);
     private readonly AlertService _alertService = Guard.Against.Null(alertService);
+    private readonly NavigationManager _navManager = Guard.Against.Null(navManager);
 
+    [EffectMethod]
+    public Task GameOverEffectAsync(GameOverAction action, IDispatcher dispatcher)
+    {
+        Guard.Against.Null(action);
+        Guard.Against.Null(dispatcher);
+        
+        // TODO need some sort of modal that would freeze the page & handle the navigation
+        _alertService.Error("The game ended. You died");
+        _navManager.NavigateTo("/");
+
+        return Task.CompletedTask;
+    }
+    
     /// <summary>
     /// Side effect that handles loading a saved game
     /// </summary>

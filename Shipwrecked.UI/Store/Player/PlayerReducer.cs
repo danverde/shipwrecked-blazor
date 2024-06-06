@@ -1,6 +1,7 @@
 using Fluxor;
 using Shipwrecked.Application.Actions;
 using Shipwrecked.Domain;
+using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player.Actions;
 
 namespace Shipwrecked.UI.Store.Player;
@@ -31,21 +32,47 @@ public static class PlayerReducer
         player.MaxStamina = action.MaxStamina;
         player.Health = action.Health;
         player.MaxHealth = action.MaxHealth;
-        
+
         return new PlayerState(player);
     }
-    
+
     /// <summary>
     /// Reducer used to update a players experience 
     /// </summary>
     [ReducerMethod]
-    public static PlayerState SetExpReducer(PlayerState state, SetExpAction action) =>
-        new PlayerState(Util.Clone(state.Player));
+    public static PlayerState SetExpReducer(PlayerState state, SetExpAction action)
+    {
+        var player = Util.Clone(state.Player);
+        player.Experience = action.Experience;
+        return new PlayerState(player);
+    }
 
     /// <summary>
     /// Reducer used to update a players stamina 
     /// </summary>
     [ReducerMethod]
-    public static PlayerState SetStaminaReducer(PlayerState state, SetStaminaAction action) =>
-         new PlayerState(Util.Clone(state.Player));
+    public static PlayerState SetStaminaReducer(PlayerState state, SetStaminaAction action)
+    {
+        var player = Util.Clone(state.Player);
+        player.Stamina = action.Stamina;
+        return new PlayerState(player);
+    }
+    
+    #region Game Level Reducers
+
+    /// <summary>
+    /// Reducer called to reset the player when quitting a game
+    /// </summary>
+    [ReducerMethod]
+    public static PlayerState QuitGameReducer(PlayerState state, QuitGameAction action) =>
+        new PlayerState(new Domain.Models.Player());
+
+    /// <summary>
+    /// Reducer called to reset the player when the game is over
+    /// </summary>
+    [ReducerMethod]
+    public static PlayerState GameOverReducer(PlayerState state, GameOverAction action) =>
+        new PlayerState(new Domain.Models.Player());
+    
+    #endregion
 }
