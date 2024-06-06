@@ -2,6 +2,7 @@ using Ardalis.GuardClauses;
 using Fluxor;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
+using Shipwrecked.UI.Services;
 using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player.Actions;
 
@@ -10,9 +11,10 @@ namespace Shipwrecked.UI.Store.Effects;
 /// <summary>
 /// AppState action side effects
 /// </summary>
-public class AppStateEffect(IAppStateService appStateService)
+public class AppStateEffect(IAppStateService appStateService, AlertService alertService)
 {
     private readonly IAppStateService _appStateService = Guard.Against.Null(appStateService);
+    private readonly AlertService _alertService = Guard.Against.Null(alertService);
 
     /// <summary>
     /// Side effect that handles loading a saved game
@@ -30,7 +32,7 @@ public class AppStateEffect(IAppStateService appStateService)
             dispatcher.Dispatch(new GameLoadedAction(appState.Game));
         }
         else
-            throw new NotImplementedException("Need to implement failure actions!");
+            _alertService.Error("Unable to load Game");
     }
 
     /// <summary>
@@ -43,6 +45,7 @@ public class AppStateEffect(IAppStateService appStateService)
         Guard.Against.Null(dispatcher);
         
         AppState appState = await _appStateService.SaveAsync(action.Game, action.Player);
+        _alertService.Success("Game Saved");
         dispatcher.Dispatch(new GameLoadedAction(appState.Game));
     }
 }

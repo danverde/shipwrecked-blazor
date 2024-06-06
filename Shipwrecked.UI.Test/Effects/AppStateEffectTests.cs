@@ -4,6 +4,7 @@ using Moq;
 using Shared;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
+using Shipwrecked.UI.Services;
 using Shipwrecked.UI.Store.Effects;
 using Shipwrecked.UI.Store.Game.Actions;
 
@@ -16,23 +17,29 @@ public class AppStateEffectTests
 {
     private readonly Mock<IAppStateService> _appStateServiceMock = new();
     private readonly Mock<IDispatcher> _dispatcherMock = new();
+    private readonly AlertService _alertService = new();
     private readonly AppStateEffect _appStateEffect;
 
     public AppStateEffectTests()
     {
-        _appStateEffect = new AppStateEffect(_appStateServiceMock.Object);
+        _appStateEffect = new AppStateEffect(_appStateServiceMock.Object, _alertService);
     }
 
     #region Constructor
 
-    [Fact]
-    public void Constructor_NullAppStateService_ShouldThrow()
+    [Theory]
+    [InlineData("appStateService")]
+    [InlineData("alertService")]
+    public void Constructor_NullAppStateService_ShouldThrow(string param)
     {
         // Arrange
-        Action act = () => new AppStateEffect(null!);
+        var appStateService = param == "appStateService" ? null! : _appStateServiceMock.Object;
+        var alertService = param == "alertService" ? null! : _alertService;
+        
+        Action act = () => new AppStateEffect(appStateService, alertService);
         
         // Act/Assert
-        act.Should().Throw<ArgumentNullException>().WithParameterName("appStateService");
+        act.Should().Throw<ArgumentNullException>().WithParameterName(param);
     }
 
     #endregion

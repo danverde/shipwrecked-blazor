@@ -29,7 +29,7 @@
                     </div>
                 </Button>
                 <div class="delete-button-wrapper">
-                    <Button Styles="margin-bottom: 0;" Variant=@ButtonType.Banner OnClickCallback="() => DeleteSaveGameAsync(state.Game.Id)">
+                    <Button Styles="margin-bottom: 0;" Variant=@ButtonType.Banner OnClickCallback="() => DeleteSaveGameAsync(state.Game.Id, state.Player.Name)">
                         <img src="img/icons/bomb.svg" alt="The delete button"/>
                     </Button>
                 </div>

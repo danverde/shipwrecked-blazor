@@ -111,7 +111,11 @@ public class PlayerServiceTests
         _playerManagerMock.Verify(x => x.IncreaseExp(player), Times.Never);
     }
     
-    // should level up if exp is high enough
+    /// <summary>
+    /// TODO HAS A BUG WHERE LEVELING UP RESETS STAMINA!
+    /// seems like the setStamina & setExp actions don't actually work.
+    /// The change to the player takes place as part of the incrementDay action. 
+    /// </summary>
     [Fact]
     public void IncrementDay_LevelUp_ShouldLevelUp()
     {

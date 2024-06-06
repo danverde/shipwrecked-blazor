@@ -26,27 +26,42 @@ public class AlertService : IDisposable
     
     public List<Alert> Alerts { get; } = new();
 
-    public event Action OnChange = default!; 
-    
+    public event Action OnChange = default!;
+
     /// <summary>
-    /// Create a new toast notification
+    /// Create a new informational toast
     /// </summary>
-    public void Create(string message, AlertType type = AlertType.Info)
+    public void Info(string message)
     {
         Guard.Against.NullOrWhiteSpace(message);
-        
-        var alert = new Alert
-        {
-            Message = message,
-            Type = type
-        };
-        
-        Alerts.Add(alert);
-        
-        if (!_timer.Enabled)
-            _timer.Start();
-            
-        OnChange.Invoke();
+        Create(message, AlertType.Info);
+    }
+
+    /// <summary>
+    /// Create a new Success toast
+    /// </summary>
+    public void Success(string message)
+    {
+        Guard.Against.NullOrWhiteSpace(message);
+        Create(message, AlertType.Success);
+    }
+    
+    /// <summary>
+    /// Create a new Warning toast
+    /// </summary>
+    public void Warn(string message)
+    {
+        Guard.Against.NullOrWhiteSpace(message);
+        Create(message, AlertType.Warning);
+    }
+    
+    /// <summary>
+    /// Create a new Error toast
+    /// </summary>
+    public void Error(string message)
+    {
+        Guard.Against.NullOrWhiteSpace(message);
+        Create(message, AlertType.Error);
     }
     
     /// <summary>
@@ -71,6 +86,29 @@ public class AlertService : IDisposable
     {
         _timer.Dispose();
     }
+
+    #region Private Methods
+
+    /// <summary>
+    /// Generate and render a new toast notification
+    /// </summary>
+    private void Create(string message, AlertType type)
+    {
+        Guard.Against.NullOrWhiteSpace(message);
+        
+        var alert = new Alert
+        {
+            Message = message,
+            Type = type
+        };
+        
+        Alerts.Add(alert);
+        
+        if (!_timer.Enabled)
+            _timer.Start();
+            
+        OnChange.Invoke();
+    }
     
     /// <summary>
     /// CB used to handle the timer elapsed event
@@ -85,4 +123,7 @@ public class AlertService : IDisposable
             }
         }
     }
+
+    #endregion
+    
 }

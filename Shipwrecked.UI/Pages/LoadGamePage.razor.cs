@@ -2,6 +2,7 @@ using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Infrastructure.Models;
+using Shipwrecked.UI.Services;
 using Shipwrecked.UI.Store.Game.Actions;
 
 namespace Shipwrecked.UI.Pages;
@@ -12,9 +13,8 @@ namespace Shipwrecked.UI.Pages;
 public partial class LoadGamePage
 {
     [Inject] private NavigationManager NavManager { get; set; } = default!;
-
+    [Inject] private AlertService AlertService { get; set; } = default!;
     [Inject] private IAppStateService AppStateService { get; set; } = default!;
-
     [Inject] private IDispatcher Dispatcher { get; set; } = default!;
     
     private IList<AppState> States { get; set; } = new List<AppState>();
@@ -31,9 +31,10 @@ public partial class LoadGamePage
         NavManager.NavigateTo($"/game/{id}");
     }
 
-    private async Task DeleteSaveGameAsync(Guid gameId)
+    private async Task DeleteSaveGameAsync(Guid gameId, string playerName)
     {
         await AppStateService.DeleteAsync(gameId);
         States = await AppStateService.ListAsync();
+        AlertService.Success($"{playerName} Deleted");
     }
 }
