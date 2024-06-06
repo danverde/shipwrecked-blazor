@@ -13,10 +13,10 @@ namespace Shipwrecked.UI.Store.Effects;
 /// <summary>
 /// AppState action side effects
 /// </summary>
-public class AppStateEffect(IAppStateService appStateService, AlertService alertService, NavigationManager navManager)
+public class AppStateEffect(IAppStateService appStateService, IAlertService alertService, NavigationManager navManager)
 {
     private readonly IAppStateService _appStateService = Guard.Against.Null(appStateService);
-    private readonly AlertService _alertService = Guard.Against.Null(alertService);
+    private readonly IAlertService _alertService = Guard.Against.Null(alertService);
     private readonly NavigationManager _navManager = Guard.Against.Null(navManager);
 
     [EffectMethod]

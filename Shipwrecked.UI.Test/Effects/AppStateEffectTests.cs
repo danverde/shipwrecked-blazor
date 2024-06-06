@@ -17,7 +17,7 @@ namespace Shipwrecked.UI.Test.Effects;
 public class AppStateEffectTests
 {
     private readonly Mock<IAppStateService> _appStateServiceMock = new();
-    private readonly AlertService _alertService = new();
+    private readonly Mock<IAlertService> _alertServiceMock = new();
     private readonly Mock<NavigationManager> _navigationManagerMock = new();
     
     private readonly Mock<IDispatcher> _dispatcherMock = new();
@@ -25,7 +25,7 @@ public class AppStateEffectTests
 
     public AppStateEffectTests()
     {
-        _appStateEffect = new AppStateEffect(_appStateServiceMock.Object, _alertService, _navigationManagerMock.Object);
+        _appStateEffect = new AppStateEffect(_appStateServiceMock.Object, _alertServiceMock.Object, _navigationManagerMock.Object);
     }
 
     #region Constructor
@@ -38,7 +38,7 @@ public class AppStateEffectTests
     {
         // Arrange
         var appStateService = param == "appStateService" ? null! : _appStateServiceMock.Object;
-        var alertService = param == "alertService" ? null! : _alertService;
+        var alertService = param == "alertService" ? null! : _alertServiceMock.Object;
         var navManager = param == "navManager" ? null! : _navigationManagerMock.Object;
         
         Action act = () => new AppStateEffect(appStateService, alertService, navManager);
@@ -72,9 +72,6 @@ public class AppStateEffectTests
         _dispatcherMock.Verify(x => x.Dispatch(It.Is<GameLoadedAction>(action => action.Game.Id == gameId)), Times.Once);
     }
     
-    /// <summary>
-    /// TODO implement real failure steps!
-    /// </summary>
     [Fact]
     public async Task LoadGameEffectAsync_ValidInput_MissingGame_ShouldThrow()
     {
@@ -88,7 +85,8 @@ public class AppStateEffectTests
         Func<Task> act = async () => await _appStateEffect.LoadAppStateEffectAsync(loadAction, _dispatcherMock.Object);
         
         // Assert
-        await act.Should().ThrowAsync<NotImplementedException>();
+        await act.Should().NotThrowAsync();
+        _alertServiceMock.Verify(x => x.Error("Unable to load Game"), Times.Once);
     }
     
     [Fact]
@@ -137,6 +135,7 @@ public class AppStateEffectTests
         // Assert
         _appStateServiceMock.Verify(x => x.SaveAsync(game, player), Times.Once);
         _dispatcherMock.Verify(x => x.Dispatch(It.Is<GameLoadedAction>(action => action.Game.Id == game.Id)), Times.Once);
+        _alertServiceMock.Verify(x => x.Success("Game Saved"), Times.Once);
     }
     
     [Fact]

@@ -38,7 +38,7 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 
 // UI Services
-builder.Services.AddSingleton<AlertService>();
+builder.Services.AddSingleton<IAlertService, AlertService>();
 
 await builder.Build().RunAsync();
 

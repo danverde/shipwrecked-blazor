@@ -13,7 +13,7 @@ namespace Shipwrecked.UI.Pages;
 public partial class LoadGamePage
 {
     [Inject] private NavigationManager NavManager { get; set; } = default!;
-    [Inject] private AlertService AlertService { get; set; } = default!;
+    [Inject] private IAlertService AlertService { get; set; } = default!;
     [Inject] private IAppStateService AppStateService { get; set; } = default!;
     [Inject] private IDispatcher Dispatcher { get; set; } = default!;
     

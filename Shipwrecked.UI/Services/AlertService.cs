@@ -6,9 +6,9 @@ using Timer = System.Timers.Timer;
 namespace Shipwrecked.UI.Services;
 
 /// <summary>
-/// Service used to manage toast messages
+/// Implementation of the <see cref="IAlertService"/> interface
 /// </summary>
-public class AlertService : IDisposable
+public class AlertService : IAlertService
 {
     private const int Duration = 5000;
     private readonly Timer _timer;
@@ -23,50 +23,44 @@ public class AlertService : IDisposable
         _timer.AutoReset = true;
         _timer.Stop();
     }
-    
-    public List<Alert> Alerts { get; } = new();
 
+    private List<Alert> Alerts { get; } = new();
+
+    /// <inheritdoc/>
     public event Action OnChange = default!;
 
-    /// <summary>
-    /// Create a new informational toast
-    /// </summary>
+    /// <inheritdoc/>
+    public List<Alert> GetAlerts() => Alerts;
+    
+    /// <inheritdoc/>
     public void Info(string message)
     {
         Guard.Against.NullOrWhiteSpace(message);
         Create(message, AlertType.Info);
     }
 
-    /// <summary>
-    /// Create a new Success toast
-    /// </summary>
+    /// <inheritdoc/>
     public void Success(string message)
     {
         Guard.Against.NullOrWhiteSpace(message);
         Create(message, AlertType.Success);
     }
     
-    /// <summary>
-    /// Create a new Warning toast
-    /// </summary>
+    /// <inheritdoc/>
     public void Warn(string message)
     {
         Guard.Against.NullOrWhiteSpace(message);
         Create(message, AlertType.Warning);
     }
     
-    /// <summary>
-    /// Create a new Error toast
-    /// </summary>
+    /// <inheritdoc/>
     public void Error(string message)
     {
         Guard.Against.NullOrWhiteSpace(message);
         Create(message, AlertType.Error);
     }
     
-    /// <summary>
-    /// Delete a toast notification
-    /// </summary>
+    /// <inheritdoc/>
     public void Delete(Alert alert)
     {
         Guard.Against.Null(alert);
@@ -79,9 +73,7 @@ public class AlertService : IDisposable
         OnChange.Invoke();
     }
     
-    /// <summary>
-    /// Delete the timer when deleting the service
-    /// </summary>
+    /// <inheritdoc cref="IAlertService"/>
     public void Dispose()
     {
         _timer.Dispose();

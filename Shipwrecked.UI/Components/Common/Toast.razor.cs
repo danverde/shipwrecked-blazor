@@ -6,7 +6,7 @@ namespace Shipwrecked.UI.Components.Common;
 
 public partial class Toast : ComponentBase
 {
-    [Inject] private AlertService AlertService { get; set; } = default!;
+    [Inject] private IAlertService AlertService { get; set; } = default!;
 
     [Parameter] public Alert Alert { get; set; } = default!;
 

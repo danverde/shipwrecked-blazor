@@ -8,7 +8,7 @@ namespace Shipwrecked.UI.Pages;
 /// </summary>
 public partial class MainMenuPage
 {
-    [Inject] private AlertService AlertService { get; set; } = default!;
+    [Inject] private IAlertService AlertService { get; set; } = default!;
     
     private bool HelpDrawerOpen { get; set; }
 

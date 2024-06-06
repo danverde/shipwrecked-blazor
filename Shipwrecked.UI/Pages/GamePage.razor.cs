@@ -17,7 +17,7 @@ public partial class GamePage
     
     [Inject] private IGameService GameService { get; set; } = default!;
     
-    [Inject] private AlertService AlertService { get; set; }
+    [Inject] private IAlertService AlertService { get; set; }
     [Inject] private IState<GameState> GameState { get; set; } = default!;
     [Inject] private IState<PlayerState> PlayerState { get; set; } = default!;
 
