@@ -10,6 +10,7 @@ using Shipwrecked.Domain.Managers;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.Infrastructure.Services;
 using Shipwrecked.UI;
+using Shipwrecked.UI.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -24,6 +25,9 @@ builder.Services.AddFluxor(options =>
     options.UseReduxDevTools(); // Don't want to run this on the release version
 }); 
 
+// Domain Services
+builder.Services.AddScoped<IPlayerManager, PlayerManager>();
+
 // Infrastructure Services
 builder.Services.AddScoped<IAppStateStore, AppStateStore>();
 
@@ -33,8 +37,8 @@ builder.Services.AddSingleton<IGameSettingsFactory, GameSettingsFactory>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 
-// Domain Services
-builder.Services.AddScoped<IPlayerManager, PlayerManager>();
+// UI Services
+builder.Services.AddSingleton<AlertService>();
 
 await builder.Build().RunAsync();
 

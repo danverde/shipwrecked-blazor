@@ -1,6 +1,7 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components;
 using Shipwrecked.Application.Interfaces;
+using Shipwrecked.UI.Services;
 using Shipwrecked.UI.Store.Game;
 using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player;
@@ -15,7 +16,8 @@ public partial class GamePage
     [Inject] private NavigationManager NavManager { get; set; } = default!;
     
     [Inject] private IGameService GameService { get; set; } = default!;
-
+    
+    [Inject] private AlertService AlertService { get; set; }
     [Inject] private IState<GameState> GameState { get; set; } = default!;
     [Inject] private IState<PlayerState> PlayerState { get; set; } = default!;
 

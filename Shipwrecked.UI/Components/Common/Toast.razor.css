@@ -1,0 +1,27 @@
+.toast {
+    font-size: var(--font-size-xs-small);
+    margin-bottom: 7.5px;
+}
+
+.toast.info {
+    background: #b8e4ff;
+}
+
+.toast.warning {
+    background: #ffd58c;
+}
+
+.toast.success {
+    background: #79dc79;
+}
+
+.toast.error {
+    color: white;
+    background: #aa2b2b;
+}
+
+.delete-button {
+    cursor: pointer;
+    padding: 5px;
+    font-weight: bold;
+}

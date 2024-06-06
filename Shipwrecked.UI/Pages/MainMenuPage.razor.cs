@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Components;
+using Shipwrecked.UI.Services;
 
 namespace Shipwrecked.UI.Pages;
 
@@ -6,6 +8,8 @@ namespace Shipwrecked.UI.Pages;
 /// </summary>
 public partial class MainMenuPage
 {
+    [Inject] private AlertService AlertService { get; set; } = default!;
+    
     private bool HelpDrawerOpen { get; set; }
 
     private void OpenDrawer()

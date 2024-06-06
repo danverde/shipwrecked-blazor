@@ -1,0 +1,8 @@
+<div class="toast-container">
+    <div class="toast-list">
+        @foreach (var alert in AlertService.Alerts)
+        {
+            <Toast Alert="@alert"></Toast>
+        }
+    </div>
+</div>

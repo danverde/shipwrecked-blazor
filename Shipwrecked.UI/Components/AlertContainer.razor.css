@@ -1,0 +1,17 @@
+.toast-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    top: -60px;
+    z-index: 1;
+}
+
+.toast-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.toast-list .toast {
+    margin-bottom: 7.5px;
+}
