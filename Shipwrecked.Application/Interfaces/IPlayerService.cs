@@ -12,7 +12,7 @@ public interface IPlayerService
     /// <summary>
     /// Create a player object
     /// </summary>
-    public Player CreatePlayer(string name, Gender gender, GameDifficulty difficulty);
+    public Player CreatePlayer(string name, Gender gender, Settings settings);
     
     /// <summary>
     /// Handles Changes to the player made when the day is incremented.

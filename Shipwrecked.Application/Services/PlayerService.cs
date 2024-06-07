@@ -16,34 +16,25 @@ public class PlayerService(IPlayerManager playerManager) : IPlayerService
     private readonly IPlayerManager _playerManager = Guard.Against.Null(playerManager);
 
     /// <inheritdoc />
-    public Player CreatePlayer(string name, Gender gender, GameDifficulty difficulty)
+    public Player CreatePlayer(string name, Gender gender, Settings settings)
     {
         Guard.Against.NullOrWhiteSpace(name);
+        Guard.Against.Null(settings);
         
-        var player = new Player
+        return new Player
         {
             Id = Guid.NewGuid(),
             Name = name,
             Level = 1,
             Experience = 0,
-            Stamina = 15,
-            MaxStamina = 20,
-            Health = 20,
-            MaxHealth = 20,
+            Stamina = settings.InitialStamina,
+            MaxStamina = settings.MaxStamina,
+            Health = settings.InitialHealth,
+            MaxHealth = settings.MaxHealth,
             ProfileImg = gender == Gender.Female ? ImgConstants.WomanProfileImg : ImgConstants.ManProfileImg,
             SpriteImg = gender == Gender.Female ? ImgConstants.WomanSprite : ImgConstants.ManSprite,
             Inventory = new Inventory(),
         };
-
-        if (difficulty == GameDifficulty.Easy)
-        {
-            player.Stamina += 5;
-        } else if (difficulty == GameDifficulty.Difficult)
-        {
-            player.Health -= 5;
-        }
-
-        return player;
     }
 
     /// <inheritdoc />

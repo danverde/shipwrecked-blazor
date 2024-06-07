@@ -1,20 +1,20 @@
 using FluentAssertions;
-using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
+using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
 
-namespace Shipwrecked.Application.Test.Factories;
+namespace Shipwrecked.Application.Test.Services;
 
 /// <summary>
-/// Unit tests for the <see cref="GameSettingsFactory"/> class
+/// Unit tests for the <see cref="SettingsService"/> class
 /// </summary>
-public class GameSettingsFactoryTests
+public class SettingsServiceTests
 {
-    private readonly IGameSettingsFactory _gameSettingsFactory;
+    private readonly ISettingsService _settingsService;
 
-    public GameSettingsFactoryTests()
+    public SettingsServiceTests()
     {
-        _gameSettingsFactory = new GameSettingsFactory();
+        _settingsService = new SettingsService();
     }
     
     [Theory]
@@ -24,7 +24,7 @@ public class GameSettingsFactoryTests
     public void Create_ShouldReturnGameSettings(GameDifficulty difficulty)
     {
         // Act
-        var result = _gameSettingsFactory.Create(difficulty);
+        var result = _settingsService.GetSettings(difficulty);
         
         // Assert
         result.Should().NotBeNull();

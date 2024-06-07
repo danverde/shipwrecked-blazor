@@ -3,6 +3,7 @@ using Shipwrecked.Application.Actions;
 using Shipwrecked.Domain;
 using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player.Actions;
+using D = Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.UI.Store.Player;
 
@@ -65,14 +66,14 @@ public static class PlayerReducer
     /// </summary>
     [ReducerMethod]
     public static PlayerState QuitGameReducer(PlayerState state, QuitGameAction action) =>
-        new PlayerState(new Domain.Models.Player());
+        new PlayerState(new D.Player());
 
     /// <summary>
     /// Reducer called to reset the player when the game is over
     /// </summary>
     [ReducerMethod]
     public static PlayerState GameOverReducer(PlayerState state, GameOverAction action) =>
-        new PlayerState(new Domain.Models.Player());
+        new PlayerState(new D.Player());
     
     #endregion
 }

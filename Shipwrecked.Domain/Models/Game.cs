@@ -24,9 +24,4 @@ public class Game
     /// Used to set some game settings
     /// </summary>
     public GameDifficulty Difficulty { get; set; } = GameDifficulty.Normal;
-
-    /// <summary>
-    /// The game settings
-    /// </summary>
-    public GameSettings Settings { get; set; } = new ();
 }

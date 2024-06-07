@@ -26,6 +26,7 @@ public class AppStateEffect(IAppStateService appStateService, IAlertService aler
         Guard.Against.Null(dispatcher);
         
         // TODO need some sort of modal that would freeze the page & handle the navigation
+        // See comment in GameOverAction class
         _alertService.Error("The game ended. You died");
         _navManager.NavigateTo("/");
 

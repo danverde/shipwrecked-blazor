@@ -6,6 +6,7 @@ using Shipwrecked.UI.Models;
 using Shipwrecked.UI.Store.Game;
 using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player.Actions;
+using Shipwrecked.UI.Store.Settings.Actions;
 
 namespace Shipwrecked.UI.Pages;
 
@@ -16,6 +17,7 @@ public partial class NewGamePage
 {
     #region DI
 
+    [Inject] private ISettingsService SettingsService { get; set; } = default!;
     [Inject] private IState<GameState> GameState { get; set; } = default!;
     [Inject] private IGameService GameService { get; set; } = default!;
     [Inject] private IPlayerService PlayerService { get; set; } = default!;
@@ -38,13 +40,13 @@ public partial class NewGamePage
     private void HandleFormSubmit()
     {
         Dispatcher.Dispatch(new StartGameAction());
-        var game =  GameService.StartNewGame(_formInput.GameDifficulty);
-        var player =  PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, _formInput.GameDifficulty);
+        var settings = SettingsService.GetSettings(_formInput.GameDifficulty);
+        var game =  GameService.CreateGame(_formInput.GameDifficulty);
+        var player =  PlayerService.CreatePlayer(_formInput.Name, _formInput.Gender, settings);
+        Dispatcher.Dispatch(new SetSettingsAction(settings));
         Dispatcher.Dispatch(new SetPlayerAction(player));
         Dispatcher.Dispatch(new GameLoadedAction(game));
 
-        // will we have the id in the state yet?
-        if (GameState.Value.Game is not null)
-            NavManager.NavigateTo($"/game/{GameState.Value.Game.Id}");
+        NavManager.NavigateTo($"/game/{GameState.Value.Game.Id}");
     }
 }

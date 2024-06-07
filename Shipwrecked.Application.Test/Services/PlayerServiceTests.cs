@@ -5,6 +5,7 @@ using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
 using Shipwrecked.Domain.Managers;
+using Shipwrecked.Domain.Models;
 
 namespace Shipwrecked.Application.Test.Services;
 
@@ -24,18 +25,16 @@ public class PlayerServiceTests
     
     #region CreatePlayer
 
-    [Theory]
-    [InlineData(GameDifficulty.Normal)]
-    [InlineData(GameDifficulty.Easy)]
-    [InlineData(GameDifficulty.Difficult)]
-    public void CreatePlayer_ValidInput_ShouldReturnPlayer(GameDifficulty difficulty)
+    [Fact]
+    public void CreatePlayer_ValidInput_ShouldReturnPlayer()
     {
         // Arrange
         var name = "some name";
         var gender = Gender.Male;
+        var settings = DomainFactory.CreateSettings();
 
         // Act
-        var result = _service.CreatePlayer(name, gender, difficulty);
+        var result = _service.CreatePlayer(name, gender, settings);
         
         // Assert
         result.Should().NotBeNull();
@@ -47,10 +46,20 @@ public class PlayerServiceTests
     public void CreatePlayer_NullOrEmptyName_ShouldThrow(string name)
     {
         // Arrange
-        Action act = () => _service.CreatePlayer(name, Gender.Female, GameDifficulty.Normal);
+        Action act = () => _service.CreatePlayer(name, Gender.Female, new Settings());
         
         // Act/Assert
         act.Should().Throw<ArgumentException>().WithParameterName("name");
+    }
+
+    [Fact]
+    public void CreatePlayer_NullSettings_ShouldThrow()
+    {
+        // Arrange
+        Action act = () => _service.CreatePlayer("name", Gender.Female, null!);
+        
+        // Act/Assert
+        act.Should().Throw<ArgumentNullException>().WithParameterName("settings");
     }
 
     #endregion

@@ -6,8 +6,28 @@ namespace Shared;
 /// <summary>
 /// Helper class used to generate domain objects for unit tests
 /// </summary>
-public class DomainFactory
+public static class DomainFactory
 {
+
+    /// <summary>
+    /// Create a basic <see cref="Settings"/> object for testing
+    /// </summary>
+    /// <returns></returns>
+    public static Settings CreateSettings()
+    {
+        return new Settings
+        {
+            WaitSuccessRate = 10000,
+            ExpPerDay = 25,
+            StaminaPerDay = 3,
+            InitialStamina = 15,
+            MaxStamina = 20,
+            InitialHealth = 20,
+            MaxHealth = 20,
+            StaminaGrowth = 1,
+            HealthGrowth = 1
+        };
+    } 
     
     /// <summary>
     /// Generate a Game object for unit testing
@@ -20,7 +40,6 @@ public class DomainFactory
         {
             Id = gameId,
             Difficulty = GameDifficulty.Normal,
-            Settings = new GameSettings()
         };
     }
 

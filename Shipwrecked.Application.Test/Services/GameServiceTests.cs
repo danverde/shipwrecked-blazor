@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Moq;
-using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Enums;
@@ -15,7 +14,6 @@ namespace Shipwrecked.Application.Test.Services;
 [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
 public class GameServiceTests
 {
-    private readonly Mock<IGameSettingsFactory> _gameSettingsFactoryMock = new();
     private readonly IGameService _service;
 
     /// <summary>
@@ -23,58 +21,29 @@ public class GameServiceTests
     /// </summary>
     public GameServiceTests()
     {
-        _service = new GameService(_gameSettingsFactoryMock.Object);
+        _service = new GameService();
     }
-
-    #region Constructor
-
-    /// <summary>
-    /// The Constructor should throw a <see cref="ArgumentNullException"/>
-    /// if any of the parameters are null
-    /// </summary>
-    [Theory]
-    [InlineData("gameSettingsFactory")]
-    public void Constructor_NullParam_ShouldThrow(string param)
-    {
-        // Arrange
-        var factory = param.Equals("gameSettingsFactory") ? null! : _gameSettingsFactoryMock.Object;
-        
-        // Act
-        Action act = () => new GameService(factory);
-        
-        // Assert
-        act.Should().Throw<ArgumentNullException>().WithParameterName(param);
-    }
-
-    #endregion
 
     #region StartNewGame
 
-    /// <summary>
-    /// Verify that StartGame sends a new game to the IGame Store
-    /// </summary>
     [Theory]
     [InlineData(GameDifficulty.Easy)]
     [InlineData(GameDifficulty.Normal)]
     [InlineData(GameDifficulty.Difficult)]
-    public void StartGame_ValidParam_ShouldStartAGame(GameDifficulty difficulty)
+    public void StartGame_ValidParams_ShouldCreateAGame(GameDifficulty difficulty)
     {
         // Arrange
-        var gameSettings = new GameSettingsFactory().Create(difficulty);
         var expected = new Game
         {
-            Difficulty = difficulty,
-            Settings = gameSettings
+            Day = 1,
+            Difficulty = difficulty
         };
         
-        _gameSettingsFactoryMock.Setup(x => x.Create(difficulty)).Returns(gameSettings);
-        
         // Act
-        Game result = _service.StartNewGame(difficulty);
+        Game result = _service.CreateGame(difficulty);
         
         // Assert
         result.Should().BeEquivalentTo(expected, opt => opt.Excluding(g => g.Id));
-        _gameSettingsFactoryMock.Verify(x => x.Create(difficulty), Times.AtLeastOnce);
     }
 
     #endregion

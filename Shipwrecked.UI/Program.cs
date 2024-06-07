@@ -2,7 +2,6 @@
 using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Shipwrecked.Application.Factories;
 using Shipwrecked.Application.Interfaces;
 using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Interfaces;
@@ -33,7 +32,7 @@ builder.Services.AddScoped<IAppStateStore, AppStateStore>();
 
 // Application Services
 builder.Services.AddScoped<IAppStateService, AppStateService>();
-builder.Services.AddSingleton<IGameSettingsFactory, GameSettingsFactory>();
+builder.Services.AddSingleton<ISettingsService, SettingsService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 

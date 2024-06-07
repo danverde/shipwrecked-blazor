@@ -27,7 +27,7 @@ public class AlertService : IAlertService
     private List<Alert> Alerts { get; } = new();
 
     /// <inheritdoc/>
-    public event Action OnChange = default!;
+    public event Action? OnChange;
 
     /// <inheritdoc/>
     public List<Alert> GetAlerts() => Alerts;
@@ -70,7 +70,7 @@ public class AlertService : IAlertService
         if (Alerts.Count == 0)
             _timer.Stop();
         
-        OnChange.Invoke();
+        OnChange?.Invoke();
     }
     
     /// <inheritdoc cref="IAlertService"/>
@@ -99,7 +99,7 @@ public class AlertService : IAlertService
         if (!_timer.Enabled)
             _timer.Start();
             
-        OnChange.Invoke();
+        OnChange?.Invoke();
     }
     
     /// <summary>

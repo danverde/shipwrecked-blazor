@@ -6,11 +6,11 @@ namespace Shipwrecked.Application.Interfaces;
 /// <summary>
 /// Interface for a factory used to create Game settings objects
 /// </summary>
-public interface IGameSettingsFactory
+public interface ISettingsService
 {
     /// <summary>
-    /// Creates a <see cref="GameSettings"/> object
+    /// Creates a <see cref="Settings"/> object
     /// that corresponds with the given <see cref="GameDifficulty"/>
     /// </summary>
-    GameSettings Create(GameDifficulty difficulty);
+    Settings GetSettings(GameDifficulty difficulty);
 }

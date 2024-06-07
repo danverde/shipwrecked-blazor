@@ -11,5 +11,5 @@ public interface IGameService
     /// <summary>
     /// Start a new Game with a given difficulty level
     /// </summary>
-    Game StartNewGame(GameDifficulty difficulty);
+    Game CreateGame(GameDifficulty difficulty);
 }
