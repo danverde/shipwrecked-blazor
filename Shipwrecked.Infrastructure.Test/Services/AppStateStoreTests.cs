@@ -4,7 +4,7 @@ using Moq;
 using Shared;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.Infrastructure.Models;
-using Shipwrecked.Infrastructure.Services;
+using Shipwrecked.Infrastructure.Store;
 
 namespace Shipwrecked.Infrastructure.Test.Services;
 

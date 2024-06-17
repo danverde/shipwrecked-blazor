@@ -4,7 +4,7 @@ using Blazored.LocalStorage;
 using Shipwrecked.Infrastructure.Interfaces;
 using Shipwrecked.Infrastructure.Models;
 
-namespace Shipwrecked.Infrastructure.Services;
+namespace Shipwrecked.Infrastructure.Store;
 
 /// <summary>
 /// Implementation of the <see cref="IAppStateStore"/> interface

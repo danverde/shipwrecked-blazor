@@ -12,7 +12,6 @@ public static class DomainFactory
     /// <summary>
     /// Create a basic <see cref="Settings"/> object for testing
     /// </summary>
-    /// <returns></returns>
     public static Settings CreateSettings()
     {
         return new Settings

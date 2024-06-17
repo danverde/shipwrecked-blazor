@@ -19,5 +19,5 @@ public interface IPlayerService
     /// Returns a list of actions as actions.
     /// </summary>
     /// <returns>A list of actions that need to be dispatched as a result of this method</returns>
-    public List<object> IncrementDay(Player player);
+    public List<object> IncrementDay(Player player, Settings settings);
 }

@@ -8,6 +8,7 @@ using Shipwrecked.Domain.Models;
 using Shipwrecked.UI.Store.Effects;
 using Shipwrecked.UI.Store.Game.Actions;
 using Shipwrecked.UI.Store.Player;
+using Shipwrecked.UI.Store.Settings;
 
 namespace Shipwrecked.UI.Test.Effects;
 
@@ -19,12 +20,14 @@ public class PlayerEffectTests
     private readonly Mock<IPlayerService> _playerServiceMock = new();
     private readonly Mock<IDispatcher> _dispatcherMock = new();
     private readonly Mock<IState<PlayerState>> _playerStateMock = new();
+    private readonly Mock<IState<SettingsState>> _settingsStateMock = new();
 
     private readonly PlayerEffect _playerEffect;
     
     public PlayerEffectTests()
     {
-        _playerEffect = new PlayerEffect(_playerServiceMock.Object, _dispatcherMock.Object, _playerStateMock.Object);
+        _settingsStateMock.Setup(x => x.Value).Returns(new SettingsState(DomainFactory.CreateSettings()));
+        _playerEffect = new PlayerEffect(_playerServiceMock.Object, _dispatcherMock.Object, _playerStateMock.Object, _settingsStateMock.Object);
     }
     
     #region Constructor
@@ -33,15 +36,17 @@ public class PlayerEffectTests
     [InlineData("playerService")]
     [InlineData("dispatcher")]
     [InlineData("playerState")]
+    [InlineData("settingsState")]
     public void Constructor_NullParam_ShouldThrow(string param)
     {
         // Arrange
         var playerService = param == "playerService" ? null! : _playerServiceMock.Object;
         var dispatcher = param == "dispatcher" ? null! : _dispatcherMock.Object;
         var playerState = param == "playerState" ? null! : _playerStateMock.Object;
+        var settingsState = param == "settingsState" ? null! : _settingsStateMock.Object;
         
         // Act
-        Action act = () => new PlayerEffect(playerService, dispatcher, playerState);
+        Action act = () => new PlayerEffect(playerService, dispatcher, playerState, settingsState);
 
         // Assert
         act.Should().Throw<ArgumentNullException>().WithParameterName(param);
@@ -64,13 +69,13 @@ public class PlayerEffectTests
         
         var expectedActions = new List<object> {setStaminaAction, setExpAction};
 
-        _playerServiceMock.Setup(x => x.IncrementDay(It.IsAny<Player>())).Returns(expectedActions);
+        _playerServiceMock.Setup(x => x.IncrementDay(It.IsAny<Player>(), It.IsAny<Settings>())).Returns(expectedActions);
 
         // Act
         await _playerEffect.IncrementDayEffectAsync(incrementDayAction, _dispatcherMock.Object);
 
         // Assert
-        _playerServiceMock.Verify(x => x.IncrementDay(It.IsAny<Player>()), Times.Once);
+        _playerServiceMock.Verify(x => x.IncrementDay(It.IsAny<Player>(), It.IsAny<Settings>()), Times.Once);
         
         _dispatcherMock.Verify(x => x.Dispatch(setStaminaAction), Times.Once);
         _dispatcherMock.Verify(x => x.Dispatch(setExpAction), Times.Once);

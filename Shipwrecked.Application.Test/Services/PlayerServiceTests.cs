@@ -71,6 +71,7 @@ public class PlayerServiceTests
     {
         // Arrange
         var player = DomainFactory.CreatePlayer();
+        var settings = DomainFactory.CreateSettings();
 
         var expectedActions = new List<object>
         {
@@ -79,7 +80,7 @@ public class PlayerServiceTests
         };
         
         // Act
-        var result = _service.IncrementDay(player);
+        List<object> result = _service.IncrementDay(player, settings);
         
         // Arrange
         result.Should().BeEquivalentTo(expectedActions);
@@ -90,6 +91,7 @@ public class PlayerServiceTests
     {
         // Arrange
         var player = DomainFactory.CreatePlayer();
+        var settings = DomainFactory.CreateSettings();
         player.Stamina = 0;
 
         var expectedActions = new List<object>
@@ -99,7 +101,7 @@ public class PlayerServiceTests
         };
         
         // Act
-        List<object> result = _service.IncrementDay(player);
+        List<object> result = _service.IncrementDay(player, settings);
         
         // Arrange
         result.First().Should().BeEquivalentTo(expectedActions.First());
@@ -111,24 +113,30 @@ public class PlayerServiceTests
     {
         // Arrange
         var player = DomainFactory.CreatePlayer();
+        var settings = DomainFactory.CreateSettings();
         player.Experience = 90;
         
         // Act
-        List<object> result = _service.IncrementDay(player);
+        List<object> result = _service.IncrementDay(player, settings);
         
         // Assert
         result.First().Should().BeOfType<SetStaminaAction>();
         result.Last().Should().BeOfType<LevelUpAction>();
     }
     
-    [Fact]
-    public void IncrementPlayer_NullPlayer_ShouldThrow()
+    [Theory]
+    [InlineData("player")]
+    [InlineData("settings")]
+    public void IncrementPlayer_NullParams_ShouldThrow(string param)
     {
         // Arrange
-        Action act = () => _service.IncrementDay(null!);
+        var player = param == "player" ? null! : DomainFactory.CreatePlayer();
+        var settings = param == "settings" ? null! : DomainFactory.CreateSettings();
+        
+        Action act = () => _service.IncrementDay(player, settings);
         
         // Act/Assert
-        act.Should().Throw<ArgumentNullException>().WithParameterName("player");
+        act.Should().Throw<ArgumentNullException>().WithParameterName(param);
     }
 
     #endregion

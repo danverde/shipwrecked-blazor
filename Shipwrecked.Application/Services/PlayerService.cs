@@ -38,14 +38,15 @@ public class PlayerService(IPlayerManager playerManager) : IPlayerService
     }
 
     /// <inheritdoc />
-    public List<object> IncrementDay(Player player)
+    public List<object> IncrementDay(Player player, Settings settings)
     {
         Guard.Against.Null(player);
+        Guard.Against.Null(settings);
 
         var effects = new List<object>();
         
         // Decrease stamina
-        player = _playerManager.DecreaseStamina(player);
+        player = _playerManager.DecreaseStamina(player, settings);
         effects.Add(new SetStaminaAction(player.Stamina));            
         if (player.Stamina == 0)
         {
@@ -53,8 +54,8 @@ public class PlayerService(IPlayerManager playerManager) : IPlayerService
             return effects;
         }
         
-        var originalLevel = player.Level;
-        player = _playerManager.IncreaseExp(player);
+        int originalLevel = player.Level;
+        player = _playerManager.IncreaseExp(player, settings);
         if (player.Level > originalLevel)
         {
             effects.Add(new LevelUpAction(player));

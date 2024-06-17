@@ -7,7 +7,7 @@ using Shipwrecked.Application.Services;
 using Shipwrecked.Domain.Interfaces;
 using Shipwrecked.Domain.Managers;
 using Shipwrecked.Infrastructure.Interfaces;
-using Shipwrecked.Infrastructure.Services;
+using Shipwrecked.Infrastructure.Store;
 using Shipwrecked.UI;
 using Shipwrecked.UI.Services;
 
